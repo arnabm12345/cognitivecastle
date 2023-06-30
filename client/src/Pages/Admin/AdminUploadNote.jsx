@@ -87,8 +87,9 @@ const AdminUploadNotes = () => {
       formData.append("title", inputValue);
       formData.append(
         "registration_num",
-        store.admin.admin.admin.registrationNumber
-      );
+        store.admin.admin.registrationNumber
+        
+        );
 
       fetch("http://localhost:5000/upLoadNotes", {
         method: "POST",
