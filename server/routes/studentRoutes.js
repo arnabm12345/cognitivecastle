@@ -45,4 +45,5 @@ router.post('/getStudentByRegName', passport.authenticate('jwt', { session: fals
 router.post('/getStudentByName', getStudentByName)
 router.get('/updateDate/:registrationNumber',updateDate)
 
+
 module.exports = router

@@ -198,13 +198,13 @@ export const adminAddAdmin = (adminCredentails) => {
 }
 
 
-export const adminGetAllFaculty = (department) => {
+export const adminGetAllFaculty = (selectedsubject) => {
     return async (dispatch) => {
         try {
             const { data } = await axios({
                 method: 'Post',
                 url: url + "/api/admin/getAllFaculty",
-                data: department
+                data: selectedsubject
             })
             dispatch(adminGetAllFacultyHelper(data.result))
         }
@@ -217,13 +217,33 @@ export const adminGetAllFaculty = (department) => {
     }
 }
 
-export const adminGetAllStudent = (searchCredentials) => {
+export const adminGetFaculty = (registrationNumber) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios({
+                method: 'Post',
+                url: url + "/api/admin/getFaculty",
+                data: registrationNumber
+            })
+            dispatch(adminGetAllFacultyHelper(data.result))
+        }
+        catch (err) {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        }
+    }
+}
+
+
+export const adminGetAllStudent = (year) => {
     return async (dispatch) => {
         try {
             const { data } = await axios({
                 method: 'Post',
                 url: url + "/api/admin/getAllStudent",
-                data: searchCredentials
+                data: year
             })
             dispatch(adminGetAllStudentHelper(data.result))
         }
@@ -236,13 +256,13 @@ export const adminGetAllStudent = (searchCredentials) => {
     }
 }
 
-export const adminGetAllSubject = (department) => {
+export const adminGetAllSubject = (year) => {
     return async (dispatch) => {
         try {
             const { data } = await axios({
                 method: 'Post',
                 url: url + "/api/admin/getAllSubject",
-                data: department
+                data: year
             })
             dispatch(adminGetAllSubjectHelper(data.result))
         }

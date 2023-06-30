@@ -20,6 +20,7 @@ import StudentDetails from './Pages/StudentDetails'
 import facultyInterface from './Pages/FacultyInterface'
 import AttendenceFaculty from './Pages/AttendenceFaculty'
 
+import AdminUploadNotes from './Pages/Admin/AdminUploadNote';
 import AdminAddStudent from './Pages/AdminAddStudent'
 import AdminAddFaculty from './Pages/AdminAddFaculty'
 import AdminAddSubject from './Pages/AdminAddSubject'
@@ -54,6 +55,10 @@ import CreateRoutines from './Pages/FacultyCreateRoutines';
 import Chat1 from './Pages/Chat1.js';
 import Payment from './Pages/Payment';
 import NotFound from './Pages/Page404';
+import UploadVideos from './Pages/UploadVideos';
+import Announcement from './Pages/Annoucement';
+import invoice from './Pages/invoice';
+import AdminaddSubjectFaculty from './Pages/Admin/AdminAddSubjectToFaculty';
 //import { ChatEngine } from 'react-chat-engine';
 if (window.localStorage.facultyJwtToken) {
   setAuthToken(localStorage.facultyJwtToken);
@@ -114,8 +119,11 @@ function App() {
           <Route exact path="/admin/addSubject" component={AdminAddSubject} />
           <Route exact path="/admin/addAdmin" component={AdminAddAdmin} />
           <Route exact path="/admin/allFaculties" component={AdminGetAllFaculty} />
+          <Route exact path="/admin/AdminaddSubjectFaculty" component={AdminaddSubjectFaculty} />
           <Route exact path="/admin/allStudents" component={AdminGetAllStudent} />
           <Route exact path="/admin/allSubject" component={AdminGetAllSubject} />
+          <Route exact path="/admin/AdminUploadNotes" component={AdminUploadNotes} />
+
           <Route exact path="/student/attendence" component={StudentAttendencePage} />
           <Route exact path="/student/updatePassword" component={StudentUpdatePassword} />
           <Route exact path="/student/testPerformance" component={StudentTestPerformace} />
@@ -127,8 +135,11 @@ function App() {
           <Route exact path="/chat/:room" component={Chat} />
           <Route exact path="/student/:registrationNumber" component={RecieverUserDetails} />
           <Route exact path="/faculty/uploadNotes" component={UploadNotes} />
+          <Route exact path="/faculty/UploadVideos" component={UploadVideos} />
           <Route exact path="/faculty/createRoutines" component={CreateRoutines}/>
+          <Route exact path="/announcement" component={Announcement}/>
           <Route exact path="/payfees" component={Payment}/>
+          <Route exact path="/invoice" component={invoice}/>
           <Route path="*" component={<NotFound/>} />
 
 

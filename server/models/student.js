@@ -40,7 +40,7 @@ const studentSchema = new Schema({
     registrationNumber: {
         type: String
     },
-    department: {
+   /* department: {
         type: String,
         required: true
     },
@@ -48,6 +48,7 @@ const studentSchema = new Schema({
         type: String,
         required: true
     },
+    */
     batch: {
         type: String
     },

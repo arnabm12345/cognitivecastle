@@ -82,7 +82,7 @@ const AdminAddAdmin = () => {
                                             {error.email && (<div className="invalid-feedback">{error.email}</div>)}
                                         </div>
 
-                                        <div className="form-group">
+                                      {/*  <div className="form-group">
                                             <label htmlFor="departmentId">Department</label>
                                             <select onChange={(e) => setDepartment(e.target.value)} className={classnames("form-control",
                                                 {
@@ -98,7 +98,10 @@ const AdminAddAdmin = () => {
                                             </select>
                                             {error.department && (<div className="invalid-feedback">{error.department}</div>)}
                                         </div>
+                                            */}
                                     </div>
+
+                                            
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label htmlFor="dobId">DOB</label>

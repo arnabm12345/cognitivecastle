@@ -6,7 +6,7 @@ const validateAdminRegisterInput = (data) => {
     let errors = {}
     data.name = !isEmpty(data.name) ? data.name : '';
     data.email = !isEmpty(data.email) ? data.email : '';
-    data.department = !isEmpty(data.department) ? data.department : '';
+   // data.department = !isEmpty(data.department) ? data.department : '';
     data.dob = !isEmpty(data.dob) ? data.dob : '';
     data.contactNumber = !isEmpty(data.contactNumber) ? data.contactNumber : '';
     if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
@@ -24,9 +24,9 @@ const validateAdminRegisterInput = (data) => {
     if (Validator.isEmpty(data.email)) {
         errors.email = 'Email field is required';
     }
-    if (Validator.isEmpty(data.department)) {
+   /* if (Validator.isEmpty(data.department)) {
         errors.department = 'Department field is required';
-    }
+    }*/
     if (Validator.isEmpty(data.dob)) {
         errors.dob = 'DOB field is required';
     }

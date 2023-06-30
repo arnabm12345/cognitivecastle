@@ -4,17 +4,31 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { studentLogout } from "../redux/action/studentAction";
 import { useState } from "react";
+
 function Payment() {
     const store = useSelector((store) => store)
     const history = useHistory()
     const dispatch = useDispatch()
+    const handleClick = () => {
+        dispatch(studentLogout())
+        history.push('/')
+      };
 
+      
 
   return (
     <div>
+        <div style={{marginTop:'15px',marginLeft:'20px'}}>
+        <img
+        src="https://img.icons8.com/?size=512&id=1806&format=png"
+        style={{height:'30px',width:'30px'}}
+        onClick={handleClick}
+        />
+        </div>
         {store.student.isAuthenticated ? <>
     <div className=""  style={{display:'flex',alignItems:'center'}}>
-        <div style={{alignItems:'center',marginLeft:'35vw',marginTop:'30vh'}}>
+        
+        <div style={{alignItems:'center',marginLeft:'35vw',marginTop:'25vh'}}>
       <h2>Please Pay the Fees to</h2>
       <h2>continue using our Services</h2>
       <p style={{marginTop:'15px'}}>
@@ -43,6 +57,7 @@ function Payment() {
                 `http://localhost:5000/api/student/updateDate/${store.student.student.student.registrationNumber}`
               )
               alert("Transaction completed.Please Login Again to access the course ");
+             // history.push('/invoice')
               dispatch(studentLogout())
               history.push('/')
           }}

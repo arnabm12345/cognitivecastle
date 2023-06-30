@@ -5,7 +5,7 @@ import { adminGetAllStudent } from '../../redux/action/adminAction'
 import AdminHomeHelper from '../../Components/AdminHomeHelper'
 import classnames from 'classnames'
 
-const AdminGetAllFaculty = () => {
+const AdminGetAllStudent = () => {
     const store = useSelector((store) => store)
     const dispatch = useDispatch()
     const [department, setDepartment] = useState('')
@@ -21,7 +21,7 @@ const AdminGetAllFaculty = () => {
     const formHandler = (e) => {
         e.preventDefault()
         setIsLoading(true)
-        dispatch(adminGetAllStudent({ department, year }))
+        dispatch(adminGetAllStudent({  year }))
     }
 
     useEffect(() => {
@@ -38,22 +38,7 @@ const AdminGetAllFaculty = () => {
                     <div className="row mt-5">
                         <div className="col-md-4">
                             <form noValidate onSubmit={formHandler}>
-                                <div className="form-group">
-                                    <label htmlFor="departmentId">Department</label>
-                                    <select onChange={(e) => setDepartment(e.target.value)} className={classnames("form-control",
-                                        {
-                                            'is-invalid': error.department
-                                        })} id="departmentId">
-                                        <option>Select</option>
-                                        <option value="E.C.E">E.C.E</option>
-                                        <option value="C.S.E">C.S.E</option>
-                                        <option value="I.T">I.T</option>
-                                        <option value="E.E.E">E.E.E</option>
-                                        <option value="Mechanical">Mechanical</option>
-                                        <option value="Civil">Civil</option>
-                                    </select>
-                                    {error.department && (<div className="invalid-feedback">{error.department}</div>)}
-                                </div>
+                               
                                 <div className="form-group">
                                     <label htmlFor="yearId">Year</label>
                                     <select onChange={(e) => setYear(e.target.value)} className={classnames("form-control",
@@ -119,4 +104,4 @@ const AdminGetAllFaculty = () => {
     )
 }
 
-export default AdminGetAllFaculty
+export default AdminGetAllStudent

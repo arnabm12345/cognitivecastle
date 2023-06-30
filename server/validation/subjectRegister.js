@@ -7,7 +7,6 @@ const validateSubjectRegisterInput = (data) => {
     data.subjectName = !isEmpty(data.subjectName) ? data.subjectName : '';
     data.subjectCode = !isEmpty(data.subjectCode) ? data.subjectCode : '';
     data.year = !isEmpty(data.year) ? data.year : '';
-    data.department = !isEmpty(data.department) ? data.department : '';
     data.totalLectures = !isEmpty(data.totalLectures) ? data.totalLectures : '';
 
 
@@ -23,9 +22,6 @@ const validateSubjectRegisterInput = (data) => {
         errors.year = 'Year field is required';
     }
 
-    if (Validator.isEmpty(data.department)) {
-        errors.department = 'Department field is required';
-    }
 
     if (Validator.isEmpty(data.totalLectures)) {
         errors.totalLectures = 'Total Lecture field is required';

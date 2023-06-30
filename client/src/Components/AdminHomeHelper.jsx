@@ -32,9 +32,11 @@ const Home = () => {
                         <li className="nav-item active">
                             <button type="button" className="btn"><Link to="/admin"><li>{name.toUpperCase()}</li></Link></button>
                         </li>
-                        <li className="nav-item">
+                  {  /*    <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/addFaculty"><li>ADD FACULTY</li></Link></button>
                         </li>
+
+    */}
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/addStudent"><li>ADD STUDENT</li></Link></button>
                         </li>
@@ -44,9 +46,21 @@ const Home = () => {
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/addAdmin"><li>ADD ADMIN</li></Link></button>
                         </li>
+
+                        <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{color:'blue'}}>
+                                        FACULTY </a>
+                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <Link className="dropdown-item" to="/admin/addFaculty">ADD FACULTY</Link>
+                                        <Link className="dropdown-item" to="/admin/allFaculties">OUR FACULTIES</Link>
+                                        <Link className="dropdown-item" to="/admin/AdminaddSubjectFaculty">Add Subject</Link>
+                                    </div>
+                                </li>
+{/*
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/allFaculties"><li>OUR FACULTIES</li></Link></button>
                         </li>
+*/}
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/allStudents"><li>OUR STUDENTS</li></Link></button>
                         </li>
@@ -54,7 +68,7 @@ const Home = () => {
                             <button type="button" className="btn"><Link to="/admin/allSubject"><li>SUBJECTS</li></Link></button>
                         </li>
                         <li className="nav-item">
-                            <button type="button" className="btn"><Link to="/admin/allSubject"><li>UPLOAD NOTES</li></Link></button>
+                            <button type="button" className="btn"><Link to="/admin/AdminUploadNotes"><li>UPLOAD NOTES</li></Link></button>
                         </li>
 
                     </ul>

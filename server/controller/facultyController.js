@@ -10,6 +10,7 @@ const Note=require('../models/note')
 const Timetable=require('../models/timetable')
 const keys = require('../config/key')
 const Video=require('../models/video')
+const Notice=require('../models/notice')
 //File Handler
 const bufferConversion = require('../utils/bufferConversion')
 const cloudinary = require('../utils/cloudinary')
@@ -32,6 +33,8 @@ module.exports = {
             const { registrationNumber, password } = req.body;
 
             const faculty = await Faculty.findOne({ registrationNumber })
+            .populate('subjectsCanTeach')
+            .exec();
             if (!faculty) {
                 errors.registrationNumber = 'Registration number not found';
                 return res.status(404).json(errors);
@@ -43,7 +46,7 @@ module.exports = {
                 return res.status(404).json(errors);
             }
             const payload = {
-                id: faculty.id, faculty
+                id: faculty._id, faculty
             };
             jwt.sign(
                 payload,
@@ -347,7 +350,9 @@ module.exports = {
       const {registration_num}=req.params;
       try {
         // Find all notes with the given registration_num
-        const notes = await Note.find({ registration_num }).sort({ updatedAt: -1 });
+        const notes = await Note.find({ registration_num }).sort({ updatedAt: -1 })
+        .populate('subject')
+        .exec();
        return  res.status(200).json(notes);
       } catch (error) {
         console.error('Error occurred while retrieving notes:', error);
@@ -393,7 +398,8 @@ module.exports = {
     },
     getAllTimetable: async(req,res)=>{
         try {
-            const timetable = await Timetable.find({});
+            const {year}=req.params;
+            const timetable = await Timetable.find({year});
             return res.status(200).json(timetable);
           } catch (error) {
             console.error("Error retrieving timetable:", error);
@@ -404,12 +410,74 @@ module.exports = {
         const {registration_num}=req.params;
         try {
           // Find all notes with the given registration_num
-          const videos = await Video.find({ registration_num }).sort({ updatedAt: -1 });
+          const videos = await Video.find({ registration_num }).sort({ updatedAt: -1 }).populate('subject')
+          .exec();
          return  res.status(200).json(videos);
         } catch (error) {
           console.error('Error occurred while retrieving notes:', error);
           res.status(500).json({ error: 'Failed to retrieve notes.' });
         }
   
-      }
+      },
+      deleteVideo :async (req, res) =>{
+        const {_id}=req.body;
+        try {
+            // Find the note by _id and delete it
+            await Video.findByIdAndDelete(_id);
+        
+            res.status(200).json({ message: 'Upload deleted successfully.' });
+          } catch (error) {
+            console.error('Error occurred while deleting the upload:', error);
+            res.status(500).json({ error: 'Failed to delete the upload.' });
+          }
+    },
+    uploadNotice :async (req, res) => {
+        const { subject, content, classt,registration_num} = req.body;
+      
+      const date1=new Date();
+      const date = date1.toISOString().split('T')[0];
+
+        // Create a new note instance
+        const notice = new Notice({
+          subject,
+          content,
+          classt,
+          date,
+          registration_num
+        });
+      
+        // Save the note to the database
+        notice.save((err) => {
+          if (err) {
+            return res.status(500).json({ error: 'Failed to save note' });
+          }
+          res.status(200).json({ message: 'Note uploaded successfully' });
+        });
+    },
+    getAllUploadedNotice :async (req, res) =>{
+        const {registration_num}=req.params;
+        try {
+          // Find all notes with the given registration_num
+          const notice = await Notice.find({ registration_num }).sort({ updatedAt: -1 });
+         return  res.status(200).json(notice);
+        } catch (error) {
+          console.error('Error occurred while retrieving notes:', error);
+          res.status(500).json({ error: 'Failed to retrieve notes.' });
+        }
+  
+      },
+      deleteUploadNotice :async (req, res) =>{
+       
+        const {_id}=req.body;
+        try {
+            // Find the note by _id and delete it
+            await Notice.findByIdAndDelete(_id);
+        
+            res.status(200).json({ message: 'Upload deleted successfully.' });
+          } catch (error) {
+            console.error('Error occurred while deleting the upload:', error);
+            res.status(500).json({ error: 'Failed to delete the upload.' });
+          }
+     
+      },
 }

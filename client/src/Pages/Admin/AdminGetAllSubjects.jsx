@@ -18,7 +18,7 @@ const AdminGetAllSubjects = () => {
     const formHandler = (e) => {
         e.preventDefault()
         setIsLoading(true)
-        dispatch(adminGetAllSubject({ department, year }))
+        dispatch(adminGetAllSubject({  year }))
 
     }
     useEffect(() => {
@@ -36,7 +36,7 @@ const AdminGetAllSubjects = () => {
                         <div className="row mt-5">
                             <div className="col-md-4">
                                 <form noValidate onSubmit={formHandler}>
-                                    <div className="form-group">
+                                   {/* <div className="form-group">
                                         <label htmlFor="departmentId">Department</label>
                                         <select onChange={(e) => setDepartment(e.target.value)} className={classnames("form-control",
                                             {
@@ -52,6 +52,7 @@ const AdminGetAllSubjects = () => {
                                         </select>
                                         {error.department && (<div className="invalid-feedback">{error.department}</div>)}
                                     </div>
+                                        */}
                                     <div className="form-group">
                                         <label htmlFor="yearId">Year</label>
                                         <select onChange={(e) => setYear(e.target.value)} className={classnames("form-control",

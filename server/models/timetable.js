@@ -6,6 +6,10 @@ const timetableSchema = new Schema({
     type: String,
     required: true,
   },
+  year: {
+    type: String,
+    required: true 
+},
   morning: {
     time: {
         type:String,

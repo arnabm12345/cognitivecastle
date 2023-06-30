@@ -2,10 +2,7 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const subjectSchema = new Schema({
-    department: {
-        type: String,
-        required: true
-    },
+    
     subjectCode: {
         type: String,
         required: true

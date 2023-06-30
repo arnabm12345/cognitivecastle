@@ -6,8 +6,7 @@ const validateStudentRegisterInput = (data) => {
     let errors = {}
     data.name = !isEmpty(data.name) ? data.name : '';
     data.email = !isEmpty(data.email) ? data.email : '';
-    data.department = !isEmpty(data.department) ? data.department : '';
-    data.section = !isEmpty(data.section) ? data.section : '';
+    
     data.dob = !isEmpty(data.dob) ? data.dob : '';
     data.year = !isEmpty(data.year) ? data.year : '';
 
@@ -28,18 +27,13 @@ const validateStudentRegisterInput = (data) => {
     }
 
 
-    if (Validator.isEmpty(data.department)) {
-        errors.department = 'Department field is required';
-    }
+   
 
     if (Validator.isEmpty(data.year)) {
         errors.year = 'Year field is required';
     }
 
-    if (Validator.isEmpty(data.section)) {
-        errors.section = 'Section field is required';
-    }
-
+   
     if (Validator.isEmpty(data.dob)) {
         errors.dob = 'DOB field is required';
     }

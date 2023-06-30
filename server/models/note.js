@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose
 
 const noteSchema = new mongoose.Schema({
   subject: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'subject',
     required: true
   },
   file: {

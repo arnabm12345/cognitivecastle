@@ -69,10 +69,12 @@ const FacultyUpdateProfile = () => {
                                     <label htmlFor="numberId">Contact Number</label>
                                     <input onChange={(e) => setContactNumber(e.target.value)} required type="number" className="form-control" id="numberId" />
                                 </div>
-                                <div className="form-group">
+                              { /* <div className="form-group">
                                     <label htmlFor="aadharId">Aadhar Card Number</label>
                                     <input onChange={(e) => setAadharCard(e.target.value)} type="number" className="form-control" id="aadharId" />
                                 </div>
+
+            */ }
                                 <div class="row justify-content-center">
                                     <div class="col-md-1">
                                         {

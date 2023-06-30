@@ -26,7 +26,7 @@ const Home = () => {
             <div className="row">
                 <div className="col">
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <h4 className="navbar-brand mt-1" href="">COGNITIVE CASTLE</h4>
+                        <h4 className="navbar-brand mt-1" href=""> </h4>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -38,12 +38,14 @@ const Home = () => {
                                 <li className="nav-item">
                                     <button type="button" className="btn"><Link to="/faculty/updateProfile"><li>UPDATE PROFILE</li></Link></button>
                                 </li>
-                                <li className="nav-item">
+                               { /* <li className="nav-item">
                                     <button type="button" className="btn"><Link to="/attendenceFaculty"><li>MARK ATTENDANCE</li></Link></button>
                                 </li>
                                 <li className="nav-item">
                                     <button type="button" className="btn"><Link to="/faculty/uploadMarks"><li>UPLOAD MARKS</li></Link></button>
                                 </li>
+
+                               */ } 
                                 <li className="nav-item">
                                     <button type="button" className="btn"><Link to="/faculty/updatePassword"><li>UPDATE PASSWORD</li></Link></button>
                                 </li>
@@ -52,6 +54,15 @@ const Home = () => {
                                 </li>
                                 <li className="nav-item">
                                     <button type="button" className="btn"><Link to="/faculty/createRoutines"><li>CREATE ROUTINES</li></Link></button>
+                                </li>
+                                <li className="nav-item">
+                                    <button type="button" className="btn"><Link to="/faculty/uploadVideos"><li>Upload Videos</li></Link></button>
+                                </li>
+                                <li className="nav-item">
+                                    <a href='http://localhost:3004/' target="_blank" className="btn" style={{color:'DodgerBlue'}}><li>Answer Doubt</li></a>
+                                </li>
+                                <li className="nav-item">
+                                    <button type="button" className="btn"><Link to="/announcement"><li>Create Announcement</li></Link></button>
                                 </li>
                             </ul>
                         </div>

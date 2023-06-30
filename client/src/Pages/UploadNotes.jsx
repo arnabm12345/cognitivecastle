@@ -180,7 +180,7 @@ const UploadNotes = () => {
               pointerEvents: loading ? "none" : "auto",
             }}
           >
-            <h1>Video Upload</h1>
+            <h1>File Upload</h1>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <label htmlFor="title">Title:</label>
               <textarea
@@ -190,14 +190,7 @@ const UploadNotes = () => {
                 cols={50}
                 style={{ width: "30%", height: "80px" }}
               />
-              <label htmlFor="title">Description:</label>
-              <textarea
-                value={inputValue}
-                onChange={handleInputChange}
-                rows={4}
-                cols={50}
-                style={{ width: "30%", height: "80px" }}
-              />
+             
             </div>
             <label htmlFor="subject-dropdown">Select a Subject:</label>
             <div className="subject-dropdown-wrapper">
@@ -206,9 +199,9 @@ const UploadNotes = () => {
                   id="subject-dropdown"
                   style={{ width: "30%", height: "30px", borderRadius: "5px" }}
                 >
-                  {subjects.map((subject) => (
-                    <option key={subject._id} value={subject.subjectName}>
-                      {subject.subjectName}
+                  {store.faculty.faculty.faculty.subjectsCanTeach.map((subject) => (
+                    <option key={subject._id} value={subject._id}>
+                        {subject.subjectName} (Class: {subject.year})
                     </option>
                   ))}
                 </select>
@@ -338,7 +331,7 @@ const UploadNotes = () => {
                         backgroundColor: index % 2 === 0 ? "#EFE1DF" : "white",
                       }}
                     >
-                      {data.subject}
+                      {data.subject.subjectName}
                     </td>
                     <td
                       style={{

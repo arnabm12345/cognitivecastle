@@ -12,12 +12,32 @@ const AdminGetAllFaculty = () => {
     const [error, setError] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const history = useHistory()
+    const [selectedsubject, setselectedsubject] = useState("");
+    const [subjects, setSubjects] = useState([]);
+    useEffect(() => {
+    fetchSubjects();
+  }, []);
 
+  const fetchSubjects = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/admin/getSubjects"
+      );
+      const subjectsData = await response.json();
+      setSubjects(subjectsData);
+      console.log("subjects", subjects);
+    } catch (error) {
+      console.error("Error fetching subjects:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
     const formHandler = (e) => {
         e.preventDefault()
         setIsLoading(true)
-        dispatch(adminGetAllFaculty({ department }))
+        dispatch(adminGetAllFaculty({ selectedsubject }))
     }
 
     useEffect(() => {
@@ -36,22 +56,37 @@ const AdminGetAllFaculty = () => {
                     <div className="row mt-5">
                         <div className="col-md-4">
                             <form form-inline noValidate onSubmit={formHandler}>
-                                <div className="form-group">
-                                    <label htmlFor="departmentId">Department</label>
-                                    <select onChange={(e) => setDepartment(e.target.value)} className={classnames("form-control",
-                                        {
-                                            'is-invalid': error.department
-                                        })} id="departmentId">
-                                        <option>Select</option>
-                                        <option value="E.C.E">E.C.E</option>
-                                        <option value="C.S.E">C.S.E</option>
-                                        <option value="E.E.E">E.E.E</option>
-                                        <option value="I.T">I.T</option>
-                                        <option value="Mechanical">Mechanical</option>
-                                        <option value="Civil">Civil</option>
-                                    </select>
-                                    {error.department && (<div className="invalid-feedback">{error.department}</div>)}
-                                </div>
+
+                               <div className="form-group">
+                        <label htmlFor="subjectId">Subject</label>
+
+                        {subjects && subjects.length > 0 ? (
+                          <select
+                            onChange={(e) => setselectedsubject(e.target.value)}
+                            className={classnames("form-control", {
+                              "is-invalid": error.selectedsubject,
+                            })}
+                            id="subjectId"
+                          >
+                           <option>Select</option>
+                            {subjects.map((subject) => (
+                              <option
+                                key={subject._id}
+                                value={subject.subjectName}
+                              >
+                                {subject.subjectName} (class: {subject.year})
+                              </option>
+                            ))}
+                          </select>
+                        ) : null}
+
+                        {error.selectedsubject && (
+                          <div className="invalid-feedback">
+                            {error.selectedsubject}
+                          </div>
+                        )}
+                      </div>
+
                                 <div class="row justify-content-center">
                                     <div class="col-md-1">
                                         {

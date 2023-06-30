@@ -27,7 +27,7 @@ const facultySchema = new Schema({
         type: String,
         required: true
     },
-    department: {
+    subject: {
         type: String, 
         required: true
     },
@@ -46,8 +46,9 @@ const facultySchema = new Schema({
         required: true 
     },
     subjectsCanTeach: [{
-        type: String
-    }],
+        type: Schema.Types.ObjectId,
+        ref: 'subject',
+      }],
     otp: {
         type: String
     }

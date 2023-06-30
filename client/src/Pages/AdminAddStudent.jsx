@@ -37,11 +37,9 @@ const AdminAddStudent = () => {
             name,
             email,
             year,
-            department,
             fatherName,
             aadharCard,
             gender,
-            section: section.toUpperCase(),
             dob: dob.split("-").reverse().join("-"),
             studentMobileNumber,
             fatherMobileNumber
@@ -83,22 +81,8 @@ const AdminAddStudent = () => {
                                                 })} id="emailId" />
                                             {error.email && (<div className="invalid-feedback">{error.email}</div>)}
                                         </div>
-                                        <div className="form-group">
-                                            <label htmlFor="departmentId">Department</label>
-                                            <select onChange={(e) => setDepartment(e.target.value)} className={classnames("form-control",
-                                                {
-                                                    'is-invalid': error.department
-                                                })} id="departmentId">
-                                                <option>Select</option>
-                                                <option value="E.C.E">E.C.E</option>
-                                                <option value="C.S.E">C.S.E</option>
-                                                <option value="I.T">I.T</option>
-                                                <option value="E.E.E">E.E.E</option>
-                                                <option value="Mechanical">Mechanical</option>
-                                                <option value="Civil">Civil</option>
-                                            </select>
-                                            {error.department && (<div className="invalid-feedback">{error.department}</div>)}
-                                        </div>
+                                       
+
                                         <div className="form-group">
                                             <label htmlFor="yearId">Year</label>
                                             <select onChange={(e) => setYear(e.target.value)} className={classnames("form-control",
@@ -114,14 +98,7 @@ const AdminAddStudent = () => {
                                             {error.year && (<div className="invalid-feedback">{error.year}</div>)}
                                         </div>
                                         
-                                        <div className="form-group">
-                                            <label htmlFor="sectionId">Section</label>
-                                            <input onChange={(e) => setSection(e.target.value)} type="text" className={classnames("form-control",
-                                                {
-                                                    'is-invalid': error.section
-                                                })} id="sectionId" />
-                                            {error.section && (<div className="invalid-feedback">{error.section}</div>)}
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label htmlFor="dobId">DOB</label>
                                             <input onChange={(e) => setDob(e.target.value)} type="date" className={classnames("form-control",
@@ -154,10 +131,7 @@ const AdminAddStudent = () => {
                                             <label htmlFor="fathercnId">Father Contact Number</label>
                                             <input onChange={(e) => setFatherContactNumber(e.target.value)} type="number" className="form-control" id="fathercnId" />
                                         </div>
-                                        <div className="form-group">
-                                            <label htmlFor="aadharId">Aadhar Card Number</label>
-                                            <input onChange={(e) => setAadharCard(e.target.value)} type="number" className="form-control" id="aadharId" />
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">

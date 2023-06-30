@@ -6,7 +6,7 @@ const router = express.Router()
 
 const { fetchStudents, markAttendence, facultyLogin, getAllSubjects,
     updatePassword, forgotPassword, postOTP, uploadMarks, updateProfile,getAllUploadedNotes,deleteUpload,getAllTimetable,
-    updateTimetabel} = require('../controller/facultyController')
+    updateTimetabel,getAllUploadedVideos,deleteVideo,uploadNotice,getAllUploadedNotice,deleteUploadNotice} = require('../controller/facultyController')
 
 router.post('/login', facultyLogin)
 
@@ -27,6 +27,11 @@ router.post('/uploadMarks', passport.authenticate('jwt', { session: false }),upl
 router.post('/updatePassword', passport.authenticate('jwt', { session: false }), updatePassword)
 router.get('/getAllUploadedNotes/:registration_num',getAllUploadedNotes)
 router.delete('/deleteUpload',deleteUpload)
-router.get('/getAllTimetable',getAllTimetable);
+router.get('/getAllTimetable/:year',getAllTimetable);
 router.post('/updateTimetabel',updateTimetabel);
+router.get('/getAllUploadedVideos/:registration_num',getAllUploadedVideos)
+router.delete('/deleteVideo',deleteVideo)
+router.post('/uploadNotice',uploadNotice)
+router.get('/getAllUploadedNotice/:registration_num',getAllUploadedNotice)
+router.delete('/deleteUploadNotice',deleteUploadNotice)
 module.exports = router

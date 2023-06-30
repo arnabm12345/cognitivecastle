@@ -166,7 +166,7 @@ module.exports = {
                 return res.status(400).json(errors)
             }
             const { name, email, year, fatherName, aadharCard,
-                gender, department, section, dob, studentMobileNumber,
+                gender,  dob, studentMobileNumber,
                 fatherMobileNumber } = req.body
                 var thirtyDaysAgo = new Date();
                 var today = new Date();
@@ -180,8 +180,8 @@ module.exports = {
                 return res.status(400).json(errors)
             }
             const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
-            let departmentHelper;
-            if (department === "C.S.E") {
+            let departmentHelper=12;
+         /*   if (department === "C.S.E") {
                 departmentHelper = "01"
             }
             else if (department === "E.C.E") {
@@ -200,8 +200,8 @@ module.exports = {
             else {
                 departmentHelper = "06"
             }
-
-            const students = await Student.find({ department })
+*/
+            const students = await Student.find({ year })
             let helper;
             if (students.length < 10) {
                 helper = "00" + students.length.toString()
@@ -233,8 +233,6 @@ module.exports = {
                 aadharCard,
                 gender,
                 registrationNumber,
-                department,
-                section,
                 batch,
                 avatar,
                 dob,
@@ -277,7 +275,7 @@ module.exports = {
             if (!isValid) {
                 return res.status(400).json(errors)
             }
-            const { name, email, designation, department, facultyMobileNumber,
+            const { name, email, designation, selectedsubject, facultyMobileNumber,
                 aadharCard, dob, gender } = req.body
             const faculty = await Faculty.findOne({ email })
             if (faculty) {
@@ -289,8 +287,8 @@ module.exports = {
                 r: 'pg', // Rating
                 d: 'mm' // Default
             });
-            let departmentHelper;
-            if (department === "C.S.E") {
+            let departmentHelper=12;
+          /*  if (department === "C.S.E") {
                 departmentHelper = "01"
             }
             else if (department === "E.C.E") {
@@ -308,8 +306,8 @@ module.exports = {
             else {
                 departmentHelper = "06"
             }
-
-            const faculties = await Faculty.find({ department })
+*/
+            const faculties = await Faculty.find({  })
             let helper;
             if (faculties.length < 10) {
                 helper = "00" + faculties.length.toString()
@@ -337,14 +335,16 @@ module.exports = {
                 email,
                 designation,
                 password: hashedPassword,
-                department,
+                subject:selectedsubject,
                 facultyMobileNumber,
                 gender,
                 avatar,
                 aadharCard,
                 registrationNumber,
                 dob,
-                joiningYear
+                joiningYear,
+                subjectsCanTeach: [selectedsubject],
+
             })
             await newFaculty.save()
             res.status(200).json({ result: newFaculty })
@@ -368,6 +368,8 @@ module.exports = {
         }
 
     },
+
+    
     addSubject: async (req, res, next) => {
         try {
             const { errors, isValid } = validateSubjectRegisterInput(req.body)
@@ -375,7 +377,7 @@ module.exports = {
             if (!isValid) {
                 return res.status(400).json(errors)
             }
-            const { totalLectures, department, subjectCode,
+            const { totalLectures, subjectCode,
                 subjectName, year } = req.body
             const subject = await Subject.findOne({ subjectCode })
             if (subject) {
@@ -384,15 +386,14 @@ module.exports = {
             }
             const newSubject = await new Subject({
                 totalLectures,
-                department,
                 subjectCode,
                 subjectName,
                 year
             })
             await newSubject.save()
-            const students = await Student.find({ department, year })
+            const students = await Student.find({  year })
             if (students.length === 0) {
-                errors.department = "No branch found for given subject"
+                errors.year = "No year found for given subject"
                 return res.status(400).json(errors)
             }
             else {
@@ -421,18 +422,59 @@ module.exports = {
     },
     getAllFaculty: async (req, res, next) => {
         try {
-            const { department } = req.body
-            const allFaculties = await Faculty.find({ department })
+            const { selectedsubject } = req.body
+            const allFaculties = await Faculty.find({ subject:selectedsubject })
             res.status(200).json({ result: allFaculties })
         }
         catch (err) {
             console.log("Error in gettting all faculties", err.message)
         }
     },
+    getFaculty: async (req, res, next) => {
+        try {
+            const { registrationNumber } = req.body
+            const allFaculties = await Faculty.find({ registrationNumber })
+            .populate('subjectsCanTeach')
+            .then(result => {
+                if (!result) {
+                  // Teacher not found
+                  return;
+                }
+            
+                // Access the subject names
+                res.status(200).json({ result: result })
+
+              })
+              .catch(error => {
+                console.error('Error retrieving teacher:', error);
+              });
+        }
+        catch (err) {
+            console.log("Error in gettting all faculties", err.message)
+        }
+    },
+    addSubjectToFaculty:async (req,res,next) =>{
+    const { registrationNumber,subject } = req.body
+    
+  await Faculty.findOneAndUpdate(
+    { registrationNumber: registrationNumber },
+    { $addToSet: { subjectsCanTeach: subject } }, // Add subjectId to subjectsCanTeach if it doesn't exist
+    { new: true } // Return the updated teacher object
+  )
+    .then(updatedTeacher => {
+      console.log('Teacher updated:', updatedTeacher);
+      res.status(200).json({ result: updatedTeacher })
+ 
+    })
+    .catch(error => {
+      console.error('Error updating teacher:', error);
+    });
+
+  },
     getAllStudent: async (req, res, next) => {
         try {
-            const { department, year } = req.body
-            const allStudents = await Student.find({ department, year })
+            const {  year } = req.body
+            const allStudents = await Student.find({ year })
             res.status(200).json({ result: allStudents })
         }
         catch (err) {
@@ -441,8 +483,8 @@ module.exports = {
     },
     getAllSubject: async (req, res, next) => {
         try {
-            const { department, year } = req.body
-            const allSubjects = await Subject.find({ department, year })
+            const {  year } = req.body
+            const allSubjects = await Subject.find({  year })
             res.status(200).json({ result: allSubjects })
         }
         catch (err) {
@@ -471,5 +513,18 @@ module.exports = {
           }
           res.status(200).json({ message: 'Note uploaded successfully' });
         });
+      },
+      getAllUploadedNotes :async (req, res) =>{
+        try {
+          // Find all notes with the given registration_num
+          const notes = await Note.find({  }).sort({ updatedAt: -1 })
+          .populate('subject')
+          .exec();
+         return  res.status(200).json(notes);
+        } catch (error) {
+          console.error('Error occurred while retrieving notes:', error);
+          res.status(500).json({ error: 'Failed to retrieve notes.' });
+        }
+  
       }
 }
