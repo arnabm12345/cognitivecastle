@@ -59,6 +59,8 @@ import UploadVideos from './Pages/UploadVideos';
 import Announcement from './Pages/Annoucement';
 import invoice from './Pages/invoice';
 import AdminaddSubjectFaculty from './Pages/Admin/AdminAddSubjectToFaculty';
+import AdminUploadVideos from './Pages/Admin/AdminUploadVideo';
+import PaymentTable from './Pages/Admin/AdmingetPayment';
 //import { ChatEngine } from 'react-chat-engine';
 if (window.localStorage.facultyJwtToken) {
   setAuthToken(localStorage.facultyJwtToken);
@@ -123,7 +125,8 @@ function App() {
           <Route exact path="/admin/allStudents" component={AdminGetAllStudent} />
           <Route exact path="/admin/allSubject" component={AdminGetAllSubject} />
           <Route exact path="/admin/AdminUploadNotes" component={AdminUploadNotes} />
-
+          <Route exact path="/admin/AdminUploadVideos" component={AdminUploadVideos} />
+          <Route exact path="/admin/getpayment" component={PaymentTable} />
           <Route exact path="/student/attendence" component={StudentAttendencePage} />
           <Route exact path="/student/updatePassword" component={StudentUpdatePassword} />
           <Route exact path="/student/testPerformance" component={StudentTestPerformace} />
@@ -141,8 +144,6 @@ function App() {
           <Route exact path="/payfees" component={Payment}/>
           <Route exact path="/invoice" component={invoice}/>
           <Route path="*" component={<NotFound/>} />
-
-
         </Switch>
       </Router>
     </div>

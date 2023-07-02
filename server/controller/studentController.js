@@ -7,6 +7,7 @@ const Subject = require('../models/subject')
 const Attendence = require('../models/attendence')
 const Message = require('../models/message')
 const Mark = require("../models/marks")
+const Payment = require('../models/payment');
 
 //File Handler
 const bufferConversion = require('../utils/bufferConversion')
@@ -31,6 +32,10 @@ module.exports = {
         const student = await Student.findOne({ registrationNumber })
         if (!student) {
             errors.registrationNumber = 'Registration number not found';
+            return res.status(404).json(errors);
+        }
+        if(student.block===1){
+            errors.block = 'User is Blocked by admin!';
             return res.status(404).json(errors);
         }
        // const isCorrect = await bcrypt.compare(password, student.password)
@@ -428,5 +433,36 @@ module.exports = {
           } catch (error) {
             res.status(500).json({ error: 'Internal server error' });
           }
-    }
+    },
+     createPayment: async (req, res) => {
+        try {
+          // Extract the required values from the request body
+          const { student, orderId, registrationNumber, name,amount } = req.body;
+          const date = new Date().toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          });
+          // Create a new payment instance with the extracted values
+          const payment = new Payment({
+            student,
+            orderId,
+            date,
+            registrationNumber,
+            name,
+            amount
+          });
+      
+          // Save the payment to the database
+          await payment.save();
+      
+          // Return a success response
+          return res.status(200).json({ message: 'Payment created successfully' });
+        } catch (error) {
+          // Handle any errors that occurred during the payment creation
+          console.error('Error creating payment:', error);
+          return res.status(500).json({ message: 'Failed to create payment' });
+        }
+      },
+      
 }

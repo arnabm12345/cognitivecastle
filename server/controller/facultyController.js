@@ -39,6 +39,10 @@ module.exports = {
                 errors.registrationNumber = 'Registration number not found';
                 return res.status(404).json(errors);
             }
+            if(faculty.block===1){
+                errors.block="user is blocked by the admin";
+                return res.status(404).json(errors);
+            }
             //const isCorrect = await bcrypt.compare(password, faculty.password)
             const isCorrect=password===faculty.password;
             if (!isCorrect) {

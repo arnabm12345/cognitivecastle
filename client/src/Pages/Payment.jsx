@@ -14,7 +14,7 @@ function Payment() {
         history.push('/')
       };
 
-      
+      const amount="200";
 
   return (
     <div>
@@ -44,15 +44,31 @@ function Payment() {
               purchase_units: [
                 {
                   amount: {
-                    value: "200",
+                    value:amount,
                   },
                 },
               ],
-            });
+            })
+            .then((orderId) => {
+              // Your code here after create the order
+              return orderId;
+          });
+          
           }}
           onApprove={async (data, actions) => {
             const details = await actions.order.capture();
             const name = details.payer.name.given_name;
+            const orderId = data.orderID;
+            console.log("Order ID:", orderId);
+            const response = await fetch('http://localhost:5000/api/student/createPayment', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({student:store.student.student.student._id,orderId:orderId,
+                registrationNumber:store.student.student.student.registrationNumber,name:store.student.student.student.name,amount:amount})
+            });
+           if(response.ok){
             await fetch(
                 `http://localhost:5000/api/student/updateDate/${store.student.student.student.registrationNumber}`
               )
@@ -60,6 +76,7 @@ function Payment() {
              // history.push('/invoice')
               dispatch(studentLogout())
               history.push('/')
+            }
           }}
         />
       </PayPalScriptProvider>

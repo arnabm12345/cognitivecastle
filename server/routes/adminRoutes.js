@@ -6,7 +6,8 @@ const { adminLogin, addFaculty, addStudent,
     addSubject, getAllFaculty, getAllStudents, getAllSubjects,
     addAdmin, 
     getAllStudent,
-    getAllSubject,uploadNote,getFaculty,addSubjectToFaculty,getAllUploadedNotes} = require('../controller/adminController')
+    getAllSubject,uploadNote,getFaculty,addSubjectToFaculty,getAllUploadedNotes,getAllUploadedVideos,
+    blockFaculty,unblockFaculty,unblockStudent,blockStudent,getPayment} = require('../controller/adminController')
 const { upload } = require('../server');
 
 router.post('/login', adminLogin)
@@ -24,5 +25,10 @@ router.post('/addSubjectToFaculty', passport.authenticate('jwt', { session: fals
 router.get('/getAllUploadedNotes',getAllUploadedNotes)
 router.get('/getSubjects', getAllSubjects)
 router.post('/uploadNote', passport.authenticate('jwt', { session: false }), uploadNote);
-
+router.get('/getAllUploadedVideos',getAllUploadedVideos);
+router.put('/blockFaculty/:id',blockFaculty);
+router.put('/unblockFaculty/:id',unblockFaculty);
+router.put('/blockStudent/:id',blockStudent);
+router.put('/unblockStudent/:id',unblockStudent);
+router.get('/getPayment',getPayment);
 module.exports = router

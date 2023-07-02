@@ -36,41 +36,82 @@ const Home = () => {
                             <button type="button" className="btn"><Link to="/admin/addFaculty"><li>ADD FACULTY</li></Link></button>
                         </li>
 
-    */}
-                        <li className="nav-item">
-                            <button type="button" className="btn"><Link to="/admin/addStudent"><li>ADD STUDENT</li></Link></button>
-                        </li>
-                        <li className="nav-item">
-                            <button type="button" className="btn"><Link to="/admin/addSubject"><li>ADD SUBJECT</li></Link></button>
-                        </li>
+                  */}
+
+
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/addAdmin"><li>ADD ADMIN</li></Link></button>
                         </li>
 
                         <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{color:'blue'}}>
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{color:'DodgerBlue'}}>
+                                        STUDENT </a>
+                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <Link className="dropdown-item" to="/admin/addStudent">ADD STUDENT</Link>
+                                        <Link className="dropdown-item" to="/admin/allStudents">Our Students</Link>
+                                    </div>
+                      </li>
+                        
+                      
+
+                        <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{color:'DodgerBlue'}}>
                                         FACULTY </a>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <Link className="dropdown-item" to="/admin/addFaculty">ADD FACULTY</Link>
                                         <Link className="dropdown-item" to="/admin/allFaculties">OUR FACULTIES</Link>
                                         <Link className="dropdown-item" to="/admin/AdminaddSubjectFaculty">Add Subject</Link>
                                     </div>
-                                </li>
-{/*
+                      </li>
+
+                      <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{color:'DodgerBlue'}}>
+                                        SUBJECT </a>
+                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <Link className="dropdown-item" to="/admin/allSubject">All Subjects</Link>
+                                        <Link className="dropdown-item" to="/admin/addSubject">Add Subject</Link>
+                                    </div>
+                      </li>
+             
+             
+                      <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{color:'DodgerBlue'}}>
+                                        ACADEMICS </a>
+                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <button type="button" className="btn" style={{color:'brown'}}><Link to="/admin/AdminUploadNotes"><li>UPLOAD NOTES</li></Link></button>
+                                    <button type="button" className="btn"><Link to="/admin/AdminUploadVideos"><li>Upload Videos</li></Link></button>     
+                                    <a href='http://localhost:3002/' target="_blank" className="btn" style={{color:'DodgerBlue'}}><li>Answer Doubt</li></a>
+
+                                    </div>
+                      </li>
+             { /*
+
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/allFaculties"><li>OUR FACULTIES</li></Link></button>
                         </li>
-*/}
+
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/allStudents"><li>OUR STUDENTS</li></Link></button>
                         </li>
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/allSubject"><li>SUBJECTS</li></Link></button>
                         </li>
+     
                         <li className="nav-item">
                             <button type="button" className="btn"><Link to="/admin/AdminUploadNotes"><li>UPLOAD NOTES</li></Link></button>
                         </li>
+                        <li className='nav-item'>
+                       <button type="button" className="btn"><Link to="/admin/AdminUploadVideos"><li>Upload Videos</li></Link></button>     
+                        </li>
+                        
+                        <li className="nav-item">
+                                    <a href='http://localhost:3002/' target="_blank" className="btn" style={{color:'DodgerBlue'}}><li>Answer Doubt</li></a>
+                        </li>
 
+                */}
+                 <li className="nav-item">
+                            <button type="button" className="btn"><Link to="/admin/getpayment"><li>Payment</li></Link></button>
+                        </li>
                     </ul>
                 </div>
                 <div>

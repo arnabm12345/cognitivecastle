@@ -34,6 +34,7 @@ const FacultyStudentLoginPags = () => {
     useEffect(() => {
         if (store.error) {
             setErrors(store.error)
+            console.log('errors',errors);
         }
     }, [store.error])
     useEffect(() => {
@@ -120,6 +121,9 @@ const FacultyStudentLoginPags = () => {
                                             <div className="invalid-feedback">{errors.password}</div>
                                         )}
                                     </div>
+                                    {errors.block && (
+                                            <p className="" style={{ color: 'red', fontWeight: 'bold' }}>User is blocked by Admin!</p>
+                                        )}
                                     <div class="row justify-content-center">
                                         <div class="col-md-1">
                                             {
@@ -128,10 +132,13 @@ const FacultyStudentLoginPags = () => {
                                                 </div>
                                             }
                                         </div>
+                                        
                                     </div>
 
                                     {!isFacultyLoading && <button type="submit" className="btn btn-info btn-block">Login</button>}
+                                   
                                 </form>
+
                                 <p className="text-center mt-2 "><Link className="text-center" to="/forgotPassword/faculty">Forgot Password</Link></p>
                             </div>
                         </div>
@@ -161,6 +168,9 @@ const FacultyStudentLoginPags = () => {
                                             <div className="invalid-feedback">{errorsHelper.password}</div>
                                         )}
                                     </div>
+                                    {errorsHelper.block && (
+                                            <p className="" style={{ color: 'red', fontWeight: 'bold' }}>User is blocked by Admin!</p>
+                                        )}
                                     <div class="row justify-content-center">
                                         <div class="col-md-1">
                                             {

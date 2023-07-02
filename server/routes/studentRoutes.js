@@ -7,7 +7,7 @@ const { checkAttendence, getAllStudents, getStudentByName, studentLogin,
     updatePassword, forgotPassword, getStudentByRegName,
     postOTP, postPrivateChat, getPrivateChat, differentChats,
     previousChats, updateProfile, getAllSubjects, getMarks,
-    updateDate } = require('../controller/studentController')
+    updateDate,createPayment } = require('../controller/studentController')
 
 router.post('/login', studentLogin)
 
@@ -44,6 +44,7 @@ router.post('/getStudentByRegName', passport.authenticate('jwt', { session: fals
 
 router.post('/getStudentByName', getStudentByName)
 router.get('/updateDate/:registrationNumber',updateDate)
+router.post('/createPayment',createPayment)
 
 
 module.exports = router

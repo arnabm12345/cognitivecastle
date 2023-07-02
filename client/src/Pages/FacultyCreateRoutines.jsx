@@ -191,6 +191,7 @@ const uniqueYears = Array.from(years).sort((a, b) => a - b);
             <form noValidate onSubmit={formHandler}>
               <div className="form-group">
                 <label htmlFor="yearId">Year</label>
+
                 <select
                   onChange={(e) => setYear(e.target.value)}
                   className={classnames("form-control", {
@@ -198,6 +199,7 @@ const uniqueYears = Array.from(years).sort((a, b) => a - b);
                   })}
                   id="yearId"
                 >
+                  <option>Select</option>
                   {uniqueYears.map((year) => (
     <option key={year} value={year}>{year}</option>
   ))}

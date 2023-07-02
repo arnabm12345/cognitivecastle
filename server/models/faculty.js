@@ -28,7 +28,8 @@ const facultySchema = new Schema({
         required: true
     },
     subject: {
-        type: String, 
+        type: Schema.Types.ObjectId,
+        ref: 'subject', 
         required: true
     },
     facultyMobileNumber: {
@@ -44,6 +45,10 @@ const facultySchema = new Schema({
     joiningYear: {
         type: Number,
         required: true 
+    },
+    block:{
+        type:Number,
+        required:true
     },
     subjectsCanTeach: [{
         type: Schema.Types.ObjectId,
