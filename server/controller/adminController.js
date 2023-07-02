@@ -567,7 +567,7 @@ module.exports = {
       })
       .catch((error) => {
         console.error(error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error 1" });
       });
   },
   getPayment:async (req,res)=> {
