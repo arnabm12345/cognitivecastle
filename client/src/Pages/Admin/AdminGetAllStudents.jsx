@@ -5,7 +5,7 @@ import { adminGetAllStudent } from '../../redux/action/adminAction'
 import AdminHomeHelper from '../../Components/AdminHomeHelper'
 import classnames from 'classnames'
 import { Audio } from "react-loader-spinner";
-
+import url from '../../redux/utils/url'
 
 const AdminGetAllStudent = () => {
     const store = useSelector((store) => store)
@@ -47,7 +47,7 @@ const AdminGetAllStudent = () => {
           // Update the block status of the faculty
           try {
             setLoading(true);
-       const response= await  fetch(`http://localhost:5000/api/admin/blockStudent/${id}`, {
+       const response= await  fetch(url+`/api/admin/blockStudent/${id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const AdminGetAllStudent = () => {
           // Update the block status of the faculty
           try {
         setLoading(true);
-       const response= await  fetch(`http://localhost:5000/api/admin/unblockStudent/${id}`, {
+       const response= await  fetch(url+`/api/admin/unblockStudent/${id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -147,11 +147,21 @@ const AdminGetAllStudent = () => {
                                         {
                                             'is-invalid': error.year
                                         })} id="yearId">
-                                        <option>Select</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
+                                         <option>Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="12+">12+</option>
+
                                     </select>
                                     {error.year && (<div className="invalid-feedback">{error.year}</div>)}
                                 </div>
@@ -180,7 +190,7 @@ const AdminGetAllStudent = () => {
                                         <th scope="col">Registration Number</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Section</th>
+                                        <th scope="col">Password</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
@@ -192,7 +202,7 @@ const AdminGetAllStudent = () => {
                                                 <td>{res.registrationNumber}</td>
                                                 <td>{res.name}</td>
                                                 <td>{res.email}</td>
-                                                <td>{res.section}</td>
+                                                <td>{res.password}</td>
                                                 <td>
                             {res.block === 0 ? (
                               <button

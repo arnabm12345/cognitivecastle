@@ -17,6 +17,10 @@ const Admin = require("../models/admin");
 const Note = require("../models/note");
 const Video = require("../models/video");
 const Payment = require('../models/payment');
+const Contact=require('../models/contact')
+const FacultyReg=require('../models/facultyregister')
+const Feedback=require('../models/feedback')
+const VolunteerReg=require('../models/volunteerregister')
 
 //Config
 const keys = require("../config/key");
@@ -501,6 +505,36 @@ module.exports = {
       res.status(200).json({ message: "Note uploaded successfully" });
     });
   },
+  
+  uploadContact:async(req,res)=>{
+    const { name, email,phone,message } = req.body;
+    const contact=new Contact({
+      name,
+      email,
+      phone,
+      message
+    });
+    contact.save((err) => {
+      if (err) {
+        return res.status(500).json({ error: "Failed to save contact" });
+      }
+      res.status(200).json({ message: "message saved successfully" });
+    });
+
+  },
+
+  getContact:async(req,res)=>{
+    try {
+      // Find all notes with the given registration_num
+      const contact = await Contact.find({}).sort({ updatedAt: -1 });
+
+      return res.status(200).json(contact);
+    } catch (error) {
+      console.error("Error occurred while retrieving contact:", error);
+      res.status(500).json({ error: "Failed to retrieve contact." });
+    }
+  },
+
   getAllUploadedNotes: async (req, res) => {
     try {
       // Find all notes with the given registration_num
@@ -577,5 +611,61 @@ module.exports = {
       } catch (err) {
         console.log("Error in gettting all students", err.message);
       }
-  }
+  },
+  facultyReg :async(req,res)=>{
+    try {
+      const contact = new FacultyReg(req.body);
+      await contact.save();
+      res.status(200).json({ message: 'Contact saved successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to save contact' });
+    }
+  },
+
+  getfacultyReg:async(req,res)=>{
+    try {
+      const faculty = await FacultyReg.find({}).sort({ updatedAt: -1 });
+
+      return res.status(200).json(faculty);
+    } catch (error) {
+      console.error("Error occurred while retrieving contact:", error);
+      res.status(500).json({ error: "Failed to retrieve contact." });
+    }
+  },
+  getAllFeedback :async (req, res) =>{
+    try {
+      // Find all notes with the given registration_num
+      const feedback = await Feedback.find({  }).sort({ updatedAt: -1 })
+      .populate('student')
+      .exec();
+     return  res.status(200).json(feedback);
+    } catch (error) {
+      console.error('Error occurred while retrieving feedback:', error);
+      res.status(500).json({ error: 'Failed to retrieve notes.' });
+    }
+
+  },
+  VolunteerReg :async(req,res)=>{
+    try {
+      const contact = new VolunteerReg(req.body);
+      await contact.save();
+      res.status(200).json({ message: 'Contact saved successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to save contact' });
+    }
+  },
+
+  getVolunteerReg:async(req,res)=>{
+    try {
+      const faculty = await VolunteerReg.find({}).sort({ updatedAt: -1 });
+
+      return res.status(200).json(faculty);
+    } catch (error) {
+      console.error("Error occurred while retrieving contact:", error);
+      res.status(500).json({ error: "Failed to retrieve contact." });
+    }
+  },
+  
 };

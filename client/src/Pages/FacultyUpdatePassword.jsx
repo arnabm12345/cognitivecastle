@@ -52,14 +52,14 @@ const FacultyUpdatePassword = () => {
                                     <label htmlFor="passwordId">New Password</label>
                                     <input onChange={(e) => setNewPassword(e.target.value)} value={newPassword} className={classnames("form-control", {
                                         "is-invalid": error.newPassword
-                                    })} value={newPassword} type="password" id="passwordId" />
+                                    })}  type="password" id="passwordId" />
                                     {error.newPassword && (<div classNameName="invalid-feedback">{error.newPassword}</div>)}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="passwordCId">Confirm New Password</label>
                                     <input onChange={(e) => setConfirmNewPassword(e.target.value)} value={confirmNewPassword} className={classnames("form-control", {
                                         "is-invalid": error.confirmNewPassword
-                                    })} value={confirmNewPassword} type="password" id="passwordCId" />
+                                    })}  type="password" id="passwordCId" />
                                     {error.confirmNewPassword && (<div classNameName="invalid-feedback">{error.confirmNewPassword}</div>)}
                                 </div>
                                 <button type="submit" className="btn btn-info btn-block ">Update Password</button>

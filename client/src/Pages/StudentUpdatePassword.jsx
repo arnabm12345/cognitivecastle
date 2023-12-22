@@ -16,16 +16,18 @@ const StudentUpdatePassword = () => {
     const [newPassword, setNewPassword] = useState('')
     const [confirmNewPassword, setConfirmNewPassword] = useState('')
     const [error, setError] = useState({})
-
+   const [isLoading,setIsLoading]=useState(false);
     useEffect(() => {
         if (store.errorHelper) {
             setError(store.errorHelper)
             console.log(store.errorHelper)
         }
     }, [store.errorHelper])
-    const formHandler = (e) => {
+    const formHandler = async(e) => {
         e.preventDefault()
-        dispatch(studentUpdatePassword({ registrationNumber: store.student.student.student.registrationNumber, oldPassword, newPassword, confirmNewPassword }))
+        setIsLoading(true);
+       await dispatch(studentUpdatePassword({ registrationNumber: store.student.student.student.registrationNumber, oldPassword, newPassword, confirmNewPassword }))
+       setIsLoading(false);
     }
     var today = new Date();  // Get the current date
     const student = store.student && store.student.student && store.student.student.student;
@@ -79,7 +81,21 @@ const StudentUpdatePassword = () => {
                                     })}  type="password" id="passwordCId" />
                                     {error.confirmNewPassword && (<div className="invalid-feedback">{error.confirmNewPassword}</div>)}
                                 </div>
-                                <button type="submit" class="btn btn-info btn-block ">Update Password</button>
+                                <div class="row justify-content-center">
+                <div class="col-md-1">
+                  {isLoading && (
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              {!isLoading && (
+                <button type="submit" className="btn btn-info btn-block  ">
+                  Update Password
+                </button>
+              )}
+                               
                             </form>
                         </div>
                     </div>

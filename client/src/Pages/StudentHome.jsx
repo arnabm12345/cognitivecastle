@@ -66,7 +66,7 @@ const Home = () => {
                                                 <td>{store.student.student.student.registrationNumber}</td>
                                             </tr>
                                             <tr>
-                                                <td>Registration Number</td>
+                                                <td>Plan Remaining</td>
                                                 <td>{`${daysDiff} days remaining`}</td>
                                             </tr>
                                             <tr>

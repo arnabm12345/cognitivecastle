@@ -8,7 +8,10 @@ const Attendence = require('../models/attendence')
 const Message = require('../models/message')
 const Mark = require("../models/marks")
 const Payment = require('../models/payment');
-
+const Note=require('../models/note')
+const Video=require('../models/video')
+const Notice=require('../models/notice')
+const Feedback=require('../models/feedback')
 //File Handler
 const bufferConversion = require('../utils/bufferConversion')
 const cloudinary = require('../utils/cloudinary')
@@ -121,18 +124,18 @@ module.exports = {
             }
             const { registrationNumber, oldPassword, newPassword, confirmNewPassword } = req.body
             if (newPassword !== confirmNewPassword) {
-                errors.confirmNewpassword = 'Password Mismatch'
+                errors.confirmNewPassword = 'Password Mismatch'
                 return res.status(400).json(errors);
             }
             const student = await Student.findOne({ registrationNumber })
-            const isCorrect = await bcrypt.compare(oldPassword, student.password)
-            if (!isCorrect) {
+           // const isCorrect = compare(oldPassword, student.password)
+            if (oldPassword!==student.password) {
                 errors.oldPassword = 'Invalid old Password';
                 return res.status(404).json(errors);
             }
-            let hashedPassword;
-            hashedPassword = await bcrypt.hash(newPassword, 10)
-            student.password = hashedPassword;
+           /* let hashedPassword;
+            hashedPassword = await bcrypt.hash(newPassword, 10)*/
+            student.password = newPassword;
             await student.save()
             res.status(200).json({ message: "Password Updated" })
         }
@@ -341,8 +344,9 @@ module.exports = {
         try {
             const {email, gender, studentMobileNumber, fatherName,
                 fatherMobileNumber, aadharCard} = req.body
-            const userPostImg = await bufferConversion(req.file.originalname, req.file.buffer)
-            const imgResponse = await cloudinary.uploader.upload(userPostImg)
+              
+          /*  const userPostImg = await bufferConversion(req.files.originalname, req.files.buffer)
+            const imgResponse = await cloudinary.uploader.upload(userPostImg)*/
             const student = await Student.findOne({ email })
             if (gender) {
                 student.gender = gender
@@ -364,8 +368,8 @@ module.exports = {
                 student.aadharCard = aadharCard
                 await student.save()
             }
-                student.avatar = imgResponse.secure_url
-                await student.save()
+               /* student.avatar = imgResponse.secure_url
+                await student.save()*/
                 res.status(200).json(student)
         }
         catch (err) {
@@ -462,6 +466,63 @@ module.exports = {
           // Handle any errors that occurred during the payment creation
           console.error('Error creating payment:', error);
           return res.status(500).json({ message: 'Failed to create payment' });
+        }
+      },
+      getAllUploadedNotes :async (req, res) =>{
+        const {subject}=req.params;
+        try {
+          // Find all notes with the given registration_num
+          const notes = await Note.find({ subject }).sort({ updatedAt: -1 });
+         return  res.status(200).json(notes);
+        } catch (error) {
+          console.error('Error occurred while retrieving notes:', error);
+          res.status(500).json({ error: 'Failed to retrieve notes.' });
+        }
+  
+      },
+      getAllUploadedVideos :async (req, res) =>{
+        const {subject}=req.params;
+        try {
+          // Find all notes with the given registration_num
+          const videos = await Video.find({ subject }).sort({ updatedAt: -1 }).populate('subject')
+          .exec();
+         return  res.status(200).json(videos);
+        } catch (error) {
+          console.error('Error occurred while retrieving notes:', error);
+          res.status(500).json({ error: 'Failed to retrieve notes.' });
+        }
+  
+      },
+
+      getAllUploadedNotice :async (req, res) =>{
+        const {subject}=req.params;
+        try {
+          // Find all notes with the given registration_num
+          const notice = await Notice.find({ subject }).sort({ updatedAt: -1 });
+         return  res.status(200).json(notice);
+        } catch (error) {
+          console.error('Error occurred while retrieving notes:', error);
+          res.status(500).json({ error: 'Failed to retrieve notes.' });
+        }
+  
+      },
+      getPayment:async (req,res)=> {
+        const {student}=req.params;
+        try {
+            const allPayments = await Payment.find({ student });
+            res.status(200).json(  allPayments );
+          } catch (err) {
+            console.log("Error in gettting all students", err.message);
+          }
+      },
+      feedbackCreate :async(req,res)=>{
+        try {
+          const feedback = new Feedback(req.body);
+          await feedback.save();
+          res.status(200).json({ message: 'feedback saved successfully' });
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Failed to save contact' });
         }
       },
       

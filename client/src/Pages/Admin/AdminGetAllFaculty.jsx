@@ -5,6 +5,7 @@ import { adminGetAllFaculty } from "../../redux/action/adminAction";
 import AdminHomeHelper from "../../Components/AdminHomeHelper";
 import classnames from "classnames";
 import { Audio } from "react-loader-spinner";
+import url from "../../redux/utils/url";
 
 const AdminGetAllFaculty = () => {
   const store = useSelector((store) => store);
@@ -31,7 +32,7 @@ const AdminGetAllFaculty = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/getSubjects"
+        url+"/api/admin/getSubjects"
       );
       const subjectsData = await response.json();
       setSubjects(subjectsData);
@@ -64,7 +65,7 @@ const AdminGetAllFaculty = () => {
       try {
         setLoading(true);
 
-   const response= await  fetch(`http://localhost:5000/api/admin/blockFaculty/${id}`, {
+   const response= await  fetch(url+`/api/admin/blockFaculty/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +103,7 @@ const AdminGetAllFaculty = () => {
       // Update the block status of the faculty
       try {
     setLoading(true);
-   const response= await  fetch(`http://localhost:5000/api/admin/unblockFaculty/${id}`, {
+   const response= await  fetch(url+`/api/admin/unblockFaculty/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -211,6 +212,7 @@ const AdminGetAllFaculty = () => {
                         <th scope="col">Registration Number</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Password</th>
                         <th scope="col">Joining Year</th>
                         <th scope="col">Actions</th>
                       </tr>
@@ -222,6 +224,7 @@ const AdminGetAllFaculty = () => {
                           <td>{res.registrationNumber}</td>
                           <td>{res.name}</td>
                           <td>{res.email}</td>
+                          <td>{res.password}</td>
                           <td>{res.joiningYear}</td>
                           <td>
                             {res.block === 0 ? (

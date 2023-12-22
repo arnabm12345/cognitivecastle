@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs")
+const fs = require("fs");
 const jwt = require('jsonwebtoken')
 const sendEmail = require('../utils/nodemailer')
 const Student = require('../models/student')
@@ -304,8 +305,8 @@ module.exports = {
         try {
             const { email, gender, facultyMobileNumber,
                 aadharCard } = req.body
-            const userPostImg = await bufferConversion(req.file.originalname, req.file.buffer)
-            const imgResponse = await cloudinary.uploader.upload(userPostImg)
+          /*  const userPostImg = await bufferConversion(req.file.originalname, req.file.buffer)
+            const imgResponse = await cloudinary.uploader.upload(userPostImg)*/
             const faculty = await Faculty.findOne({ email })
             if (gender) {
                 faculty.gender = gender
@@ -319,7 +320,7 @@ module.exports = {
                 faculty.aadharCard = aadharCard
                 await faculty.save()
             }
-            faculty.avatar = imgResponse.secure_url
+         //   faculty.avatar = imgResponse.secure_url
             await faculty.save()
             res.status(200).json(faculty)
         }
@@ -365,9 +366,19 @@ module.exports = {
 
     },
     deleteUpload :async (req, res) =>{
-        const {_id}=req.body;
+        const {_id,file}=req.body;
+        const filename = file;
+        const filePath = __dirname+ "/../uploads/" + file;
+
         try {
-            // Find the note by _id and delete it
+          fs.unlink(filePath, (err) => {
+                if (err) {
+                  console.error("Error occurred while deleting the note:", err);
+                  // Handle the error, e.g., return an error response to the client
+                //  return res.status(500).send("Error occurred while deleting the note.");
+                }
+            }
+            )              
             await Note.findByIdAndDelete(_id);
         
             res.status(200).json({ message: 'Upload deleted successfully.' });
@@ -424,9 +435,19 @@ module.exports = {
   
       },
       deleteVideo :async (req, res) =>{
-        const {_id}=req.body;
+        const {_id,file}=req.body;
+        const filename = file;
+        const filePath = __dirname+ "/../uploads_video/" + file;
+
         try {
-            // Find the note by _id and delete it
+          fs.unlink(filePath, (err) => {
+                if (err) {
+                  console.error("Error occurred while deleting the note:", err);
+                  // Handle the error, e.g., return an error response to the client
+                //  return res.status(500).send("Error occurred while deleting the note.");
+                }
+            }
+            )              
             await Video.findByIdAndDelete(_id);
         
             res.status(200).json({ message: 'Upload deleted successfully.' });

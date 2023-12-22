@@ -11,6 +11,7 @@ import '../Style/facultyStudentLogin.css'
 
 
 const FacultyStudentLoginPags = () => {
+    
     const store = useSelector((state) => state)
     const dispatch = useDispatch()
     const [facultyRegNum, setFacultyRegNum] = useState('')
@@ -96,10 +97,11 @@ const FacultyStudentLoginPags = () => {
                 <div className="col-md-6">
                 </div>
                 <div className="col-md-6">
+                  
                     <div className="row m-5">
                         <div className="col-md-8 m-auto border" style={{ backgroundColor: "white", borderRadius: "1.2rem", padding: "1rem 1rem 0rem 1rem" }}>
                             <div>
-                                <h3 className="text-center ">FACULTY</h3>
+                                <h3 className="text-center "> <Link to="/adminLogin" >FACULTY </Link></h3>
                                 <form noValidate onSubmit={facultyFormHandler}>
                                     <div className="form-group">
                                         <label htmlFor="facRegId">Registration Number</label>
@@ -141,8 +143,10 @@ const FacultyStudentLoginPags = () => {
 
                                 <p className="text-center mt-2 "><Link className="text-center" to="/forgotPassword/faculty">Forgot Password</Link></p>
                             </div>
+             
                         </div>
                     </div>
+
                     <div className="row m-5">
                         <div className="col-md-8 m-auto border" style={{ backgroundColor: "white", borderRadius: "1.2rem", padding: "1rem 1rem 0rem 1rem" }}>
                             <div>
@@ -189,6 +193,7 @@ const FacultyStudentLoginPags = () => {
                     </div>
                 </div>
             </div>
+            
         </div>
     )
 }

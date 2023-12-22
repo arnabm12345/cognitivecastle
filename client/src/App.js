@@ -4,18 +4,18 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './redux/utils/setAuthToken'
 import store from './redux/store'
-
+import { useEffect } from 'react';
 import { setFacultyUser, facultyLogout } from './redux/action/facultyAction'
 
 import { setAdminUser, adminLogout, adminGetAllStudent } from './redux/action/adminAction'
 
 import { setStudentUser, studentLogout } from './redux/action/studentAction'
 
-
+import AdminCreateRoutines from './Pages/Admin/AdminCreateRoutines';
 import LoginPage from './Pages/LoginPage'
 import Home from './Pages/StudentHome'
 
-
+import FileDownload from './Pages/PdfReader';
 import StudentDetails from './Pages/StudentDetails'
 import facultyInterface from './Pages/FacultyInterface'
 import AttendenceFaculty from './Pages/AttendenceFaculty'
@@ -48,7 +48,7 @@ import AdminGetAllFaculty from './Pages/Admin/AdminGetAllFaculty'
 import AdminGetAllStudent from './Pages/Admin/AdminGetAllStudents'
 
 import AdminGetAllSubject from './Pages/Admin/AdminGetAllSubjects'
-
+import StudentAnnouncement from './Pages/Student/StudentAnnouncement';
 import AdminHome from './Pages/Admin/AdminHome'
 import UploadNotes from './Pages/UploadNotes';
 import CreateRoutines from './Pages/FacultyCreateRoutines';
@@ -61,6 +61,15 @@ import invoice from './Pages/invoice';
 import AdminaddSubjectFaculty from './Pages/Admin/AdminAddSubjectToFaculty';
 import AdminUploadVideos from './Pages/Admin/AdminUploadVideo';
 import PaymentTable from './Pages/Admin/AdmingetPayment';
+import Contact from './Pages/Admin/AdminGetContactUsForm';
+import FacultyList from './Pages/Admin/facultyReg';
+import StudentTimetable from './Pages/Student/StudentTimetable';
+import GetNotes from './Pages/Student/StudentNotes';
+import GetVideos from './Pages/Student/StudentVideo';
+import StudentPaymentTable from './Pages/Student/StudentInvoice';
+import FeedbackForm from './Pages/Student/StudentFeedback';
+import AdminFeedback from './Pages/Admin/AdminGetFeedback';
+import volunterReg from './Pages/Admin/volunterReg'
 //import { ChatEngine } from 'react-chat-engine';
 if (window.localStorage.facultyJwtToken) {
   setAuthToken(localStorage.facultyJwtToken);
@@ -104,6 +113,21 @@ else if (window.localStorage.adminJwtToken) {
 
 function App() {
   const store = useSelector((store)=>store)
+/*
+  useEffect(() => {
+    const disableRightClick = (e) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener("contextmenu", disableRightClick);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("contextmenu", disableRightClick);
+    };
+  }, []);
+
+*/
   return (
     <div>
       <Router>
@@ -127,6 +151,17 @@ function App() {
           <Route exact path="/admin/AdminUploadNotes" component={AdminUploadNotes} />
           <Route exact path="/admin/AdminUploadVideos" component={AdminUploadVideos} />
           <Route exact path="/admin/getpayment" component={PaymentTable} />
+          <Route exact path="/admin/createroutines" component={AdminCreateRoutines} />
+          <Route exact path="/admin/contact" component={Contact} />
+          <Route exact path="/admin/getFaculty" component={FacultyList}/>
+          <Route exact path="/admin/feedback" component={AdminFeedback} />
+          <Route exact path="/admin/getVolunteer" component={volunterReg} />
+          <Route exact path="/student/feedback" component={FeedbackForm} />
+          <Route exact path="/student/invoice" component={StudentPaymentTable} />
+          <Route exact path="/student/getnotice" component={StudentAnnouncement}/> 
+          <Route exact path="/student/getvideo" component={GetVideos}/> 
+          <Route exact path="/student/getnotes" component={GetNotes} />  
+          <Route exact path="/student/timetable" component={StudentTimetable} /> 
           <Route exact path="/student/attendence" component={StudentAttendencePage} />
           <Route exact path="/student/updatePassword" component={StudentUpdatePassword} />
           <Route exact path="/student/testPerformance" component={StudentTestPerformace} />
@@ -142,7 +177,9 @@ function App() {
           <Route exact path="/faculty/createRoutines" component={CreateRoutines}/>
           <Route exact path="/announcement" component={Announcement}/>
           <Route exact path="/payfees" component={Payment}/>
-          <Route exact path="/invoice" component={invoice}/>
+          <Route exact path="/invoice/:id/:amount/:name" component={invoice}/>
+          <Route exact path="/pdfRead" component={FileDownload} />
+          
           <Route path="*" component={<NotFound/>} />
         </Switch>
       </Router>

@@ -18,7 +18,7 @@ const AdminaddSubjectFaculty = () => {
   const [subjects, setSubjects] = useState([]);
   const [registrationNumber, setregistrationNumber] = useState("");
 
-  const url = "http://localhost:5000";
+  const url = "https://cognitive-castle-server.onrender.com"
 
   useEffect(() => {
     fetchSubjects();
@@ -28,7 +28,7 @@ const AdminaddSubjectFaculty = () => {
     setIsLoading1(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/getSubjects"
+        url+"/api/admin/getSubjects"
       );
       const subjectsData = await response.json();
       setSubjects(subjectsData);

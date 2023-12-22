@@ -17,12 +17,13 @@ const StudentUpdateProfile = () => {
     const [fatherMobileNumber, setFatherContactNumber] = useState('')
     const [aadharCard, setAadharCard] = useState('')
     const [error, setError] = useState({})
-    const [avatar, setAvatar] = useState('')
+    const [avatar, setAvatar] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const [modal, setModal] = useState(false)
     const imagehandler = (e) => {
         if (e.target.files && e.target.files[0]) {
             let img = e.target.files[0]
+            console.log(img);
             setAvatar(img)
         }
     }
@@ -43,7 +44,7 @@ const StudentUpdateProfile = () => {
         formData.append("aadharCard", aadharCard)
         formData.append("avatar", avatar)
         formData.append("email", store.student.student.student.email)
-        dispatch(studentUpdate(formData, history))
+      await  dispatch(studentUpdate(formData, history))
         setModal(true)
         alert("Kindly login again to see updates")
         dispatch(studentLogout())
@@ -79,10 +80,10 @@ const StudentUpdateProfile = () => {
                         <div className="row ">
                             <div className="col-md-5 w-100 m-auto">
                                 <form onSubmit={formHandler}>
-                                    <div className="form-group">
+                                    {/*<div className="form-group">
                                         <label htmlFor="inputId">Profile Picture</label>
                                         <input required className="form-control" type="file" accept=".jpg,.png,.jpeg" id="inputId" onChange={imagehandler}></input>
-                                    </div>
+                </div>*/}
                                     <div className="form-group">
                                         <label htmlFor="genderId">Gender</label>
                                         <select onChange={(e) => setGender(e.target.value)} className="form-control" id="genderId">

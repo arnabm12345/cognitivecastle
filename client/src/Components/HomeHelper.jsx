@@ -14,10 +14,7 @@ const Home = () => {
         }
     }, [store.student.student.student.name])
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(newerChats(store.student.student.student.name))
-        dispatch(previousChats(store.student.student.student.name))
-    }, [store.student.newerChats.length])
+   
     const logoutHandler = () => {
         dispatch(studentLogout())
         history.push('/')
@@ -27,39 +24,59 @@ const Home = () => {
             <div className="row">
                 <div className="col">
                     <nav className="navbar navbar-expand-lg navbar-light  bg-light">
-                        <h4 className="navbar-brand mt-1" href="">COGNITIVE CASTLE</h4>
+                        <h8 className="navbar-brand mt-1" style={{fontSize:'14px'}} href="">COGNITIVE CASTLE</h8>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav">
                                 <li className="nav-item active">
-                                    <button type="button" className="btn"><Link to="/home"><li>{name.toUpperCase()}</li></Link></button>
+                                    <button type="button" className="btn" style={{fontSize:'14px'}}><Link to="/home"><li>{name.toUpperCase()}</li></Link></button>
                                 </li>
                                 <li className="nav-item">
-                                    <button type="button" className="btn"><Link to="/student/updateProfile"><li>UPDATE PROFILE</li></Link></button>
+                                    <button type="button" className="btn" style={{fontSize:'14px'}}><Link to="/student/updateProfile"><li>UPDATE PROFILE</li></Link></button>
                                 </li>
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" style={{fontSize:'14px'}} role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         ACADEMIC </a>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <Link className="dropdown-item" to="/student/testPerformance">Test Performance</Link>
-                                        <Link className="dropdown-item" to="/student/attendence">Attendance</Link>
+                                       { /*<Link className="dropdown-item" to="/student/testPerformance">Test Performance</Link>
+                                        <Link className="dropdown-item" to="/student/attendence">Attendance</Link> */ }
                                         <Link className="dropdown-item" to="/student/getAllSubjects">Student Subject List</Link>
                                     </div>
                                 </li>
-                                <li className="nav-item">
+                             { /*  <li className="nav-item">
                                     <button type="button" className="btn"><Link to="/studentDetails"><li>STUDENTS</li></Link></button>
                                 </li>
                                 <li className="nav-item">
                                     <button type="button" className="btn"><Link to="/studentDetails"><li>NEW CONVERSATION ({store.student.newerChats.length})</li></Link></button>
                                 </li>
+                            */}
                                 <li className="nav-item">
-                                    <button type="button" className="btn"><Link to="/student/updatePassword"><li>UPDATE PASSWORD</li></Link></button>
+                                    <button type="button" style={{fontSize:'14px'}} className="btn"><Link to="/student/updatePassword"><li>UPDATE PASSWORD</li></Link></button>
                                 </li>
                                 <li className="nav-item">
-                                    <a href='http://localhost:3004/' target="_blank" className="btn"><li>Ask Doubt</li></a>
+                                    <button type="button" style={{fontSize:'14px'}} className="btn"><Link to="/student/timetable"><li>TIME TABLE</li></Link></button>
                                 </li>
+                                <li className="nav-item">
+                                    <button type="button" style={{fontSize:'14px'}} className="btn"><Link to="/student/getnotes"><li>NOTES</li></Link></button>
+                                </li>
+                                <li className="nav-item">
+                                    <button type="button" style={{fontSize:'14px'}} className="btn"><Link to="/student/getvideo"><li>VIDEOS</li></Link></button>
+                                </li>
+                                <li className="nav-item">
+                                    <button type="button" style={{fontSize:'14px'}} className="btn"><Link to="/student/getnotice"><li>ANNOUNCEMENT</li></Link></button>
+                                </li>
+                                <li className="nav-item">
+                                    <button type="button" style={{fontSize:'14px'}} className="btn"><Link to="/student/invoice"><li>INVOICE</li></Link></button>
+                                </li> 
+                                <li className="nav-item">
+                                    <button type="button" style={{fontSize:'14px'}} className="btn"><Link to="/student/feedback"><li>FEEDBACK</li></Link></button>
+                                </li> 
+                                <li className="nav-item">
+                                    <a href='http://localhost:3004/' style={{fontSize:'14px'}} target="_blank" className="btn"><li>Ask Doubt</li></a>
+                                </li>
+
                               
                             </ul>
                            

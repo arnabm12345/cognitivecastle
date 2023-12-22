@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Audio } from "react-loader-spinner";
-
+import url from '../redux/utils/url';
 const Announcement = () => {
     const store = useSelector((store) => store);
   const history = useHistory();
@@ -26,7 +26,7 @@ const Announcement = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/faculty/getAllUploadedNotice/${store.faculty.faculty.faculty.registrationNumber}`
+        url+`/api/faculty/getAllUploadedNotice/${store.faculty.faculty.faculty.registrationNumber}`
       );
       const dummy = await response.json();
       const reversedDummy = dummy.reverse();
@@ -53,7 +53,7 @@ const Announcement = () => {
      setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/getSubjects"
+        url+"/api/admin/getSubjects"
       );
       const subjectsData = await response.json();
       setSubjects(subjectsData);
@@ -70,7 +70,7 @@ const Announcement = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/faculty/deleteUploadNotice",
+        url+"/api/faculty/deleteUploadNotice",
         {
           method: "DELETE",
           headers: {
@@ -110,7 +110,7 @@ const Announcement = () => {
         store.faculty.faculty.faculty.registrationNumber
       );
 
-      fetch("http://localhost:5000/api/faculty/uploadNotice", {
+      fetch(url+"/api/faculty/uploadNotice", {
         method: "POST",
         body: formData,
       })

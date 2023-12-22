@@ -33,7 +33,7 @@ const FacultyUpdateProfile = () => {
         formData.append("avatar", avatar)
         formData.append("email", store.faculty.faculty.faculty.email)
         setIsLoading(true)
-        dispatch(facultyUpdate(formData, history))
+        await  dispatch(facultyUpdate(formData, history))
         alert("Kindly login again to see updates")
         dispatch(facultyLogout())
         history.push('/')
@@ -52,10 +52,11 @@ const FacultyUpdateProfile = () => {
                     <div className="row ">
                         <div className="col-md-5 w-100 m-auto">
                             <form onSubmit={formHandler}>
-                                <div className="form-group">
+                              { /* <div className="form-group">
                                     <label htmlFor="inputId">Profile Picture</label>
                                     <input required className="form-control" type="file" accept=".jpg,.png,.jpeg" id="inputId" onChange={imagehandler}></input>
                                 </div>
+            */}
                                 <div className="form-group">
                                     <label htmlFor="genderId">Gender</label>
                                     <select onChange={(e) => setGender(e.target.value)} className="form-control" id="genderId">

@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Audio } from "react-loader-spinner";
-
+import url from "../../redux/utils/url";
 const AdminUploadNotes = () => {
   const store = useSelector((store) => store);
   const history = useHistory();
@@ -31,7 +31,7 @@ const AdminUploadNotes = () => {
      setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/getSubjects"
+        url+"/api/admin/getSubjects"
       );
       const subjectsData = await response.json();
       setSubjects(subjectsData);
@@ -48,7 +48,7 @@ const AdminUploadNotes = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/getAllUploadedNotes`
+        url+`/api/admin/getAllUploadedNotes`
       );
       const dummy = await response.json();
       const reversedDummy = dummy.reverse();
@@ -72,9 +72,22 @@ const AdminUploadNotes = () => {
   const handleView = (file) => {
     // Perform the download action here
     window.open(
-      `http://localhost:5000/getNote/${encodeURIComponent(file)}`,
+      url+`/getNote/${encodeURIComponent(file)}`,
       "_blank"
     );
+    /*
+    const downloadUrl = `http://localhost:5000/getNote/${encodeURIComponent(file)}`;
+
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.target = "_blank";
+    link.download = file; // Set the desired file name for the download
+  
+    // Trigger the download
+    link.dispatchEvent(new MouseEvent('click'));*/
+  //  const encodedFile = encodeURIComponent(file);
+    //const path = `/pdfRead?file=${encodedFile}`;
+   // history.push(path);
   };
 
   const handleUpload = () => {
@@ -91,7 +104,7 @@ const AdminUploadNotes = () => {
         
         );
 
-      fetch("http://localhost:5000/upLoadNotes", {
+      fetch(url+"/upLoadNotes", {
         method: "POST",
         body: formData,
       })
@@ -118,17 +131,17 @@ const AdminUploadNotes = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id,file) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/faculty/deleteUpload",
+        url+"/api/faculty/deleteUpload",
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ _id: id }),
+          body: JSON.stringify({ _id: id ,file:file}),
         }
       );
 
@@ -355,7 +368,7 @@ const AdminUploadNotes = () => {
                         View
                       </button>
                       <button
-                        onClick={() => handleDelete(data._id)}
+                        onClick={() => handleDelete(data._id,data.file)}
                         style={{
                           backgroundColor: "red",
                           color: "white",

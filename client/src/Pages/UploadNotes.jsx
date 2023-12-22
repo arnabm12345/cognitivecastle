@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Audio } from "react-loader-spinner";
-
+import url from "../redux/utils/url";
 const UploadNotes = () => {
   const store = useSelector((store) => store);
   const history = useHistory();
@@ -31,7 +31,7 @@ const UploadNotes = () => {
      setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/getSubjects"
+        url+"/api/admin/getSubjects"
       );
       const subjectsData = await response.json();
       setSubjects(subjectsData);
@@ -48,7 +48,7 @@ const UploadNotes = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/faculty/getAllUploadedNotes/${store.faculty.faculty.faculty.registrationNumber}`
+        url+`/api/faculty/getAllUploadedNotes/${store.faculty.faculty.faculty.registrationNumber}`
       );
       const dummy = await response.json();
       const reversedDummy = dummy.reverse();
@@ -72,7 +72,7 @@ const UploadNotes = () => {
   const handleView = (file) => {
     // Perform the download action here
     window.open(
-      `http://localhost:5000/getNote/${encodeURIComponent(file)}`,
+      url+`/getNote/${encodeURIComponent(file)}`,
       "_blank"
     );
   };
@@ -90,7 +90,7 @@ const UploadNotes = () => {
         store.faculty.faculty.faculty.registrationNumber
       );
 
-      fetch("http://localhost:5000/upLoadNotes", {
+      fetch(url+"/upLoadNotes", {
         method: "POST",
         body: formData,
       })
@@ -117,17 +117,17 @@ const UploadNotes = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id,file) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/faculty/deleteUpload",
+        url+"/api/faculty/deleteUpload",
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ _id: id }),
+          body: JSON.stringify({ _id: id,file:file }),
         }
       );
 
@@ -354,7 +354,7 @@ const UploadNotes = () => {
                         View
                       </button>
                       <button
-                        onClick={() => handleDelete(data._id)}
+                        onClick={() => handleDelete(data._id,data.file)}
                         style={{
                           backgroundColor: "red",
                           color: "white",

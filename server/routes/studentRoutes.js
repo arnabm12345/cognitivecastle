@@ -7,7 +7,8 @@ const { checkAttendence, getAllStudents, getStudentByName, studentLogin,
     updatePassword, forgotPassword, getStudentByRegName,
     postOTP, postPrivateChat, getPrivateChat, differentChats,
     previousChats, updateProfile, getAllSubjects, getMarks,
-    updateDate,createPayment } = require('../controller/studentController')
+    updateDate,createPayment,getAllUploadedNotes,getAllUploadedVideos,getAllUploadedNotice,
+    getPayment,feedbackCreate } = require('../controller/studentController')
 
 router.post('/login', studentLogin)
 
@@ -17,7 +18,7 @@ router.post('/postOTP', postOTP)
 
 //UPLOAD PROFILE
 router.post('/updateProfile', passport.authenticate('jwt', { session: false }),
-    upload.single("avatar"), updateProfile)
+     updateProfile)
 
 //UPLOAD PASSWORD
 router.post('/updatePassword', passport.authenticate('jwt', { session: false }), updatePassword)    
@@ -45,6 +46,11 @@ router.post('/getStudentByRegName', passport.authenticate('jwt', { session: fals
 router.post('/getStudentByName', getStudentByName)
 router.get('/updateDate/:registrationNumber',updateDate)
 router.post('/createPayment',createPayment)
+router.get('/getAllUploadedNotes/:subject',getAllUploadedNotes)
+router.get('/getAllUploadedVideos/:subject',getAllUploadedVideos)
+router.get('/getAllUploadedNotice/:subject',getAllUploadedNotice)
+router.get('/getPayment/:student',getPayment)
+router.post('/feedbackCreate',feedbackCreate)
 
 
 module.exports = router

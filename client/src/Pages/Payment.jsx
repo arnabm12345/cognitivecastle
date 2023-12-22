@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { studentLogout } from "../redux/action/studentAction";
 import { useState } from "react";
+import url from "../redux/utils/url";
 
 function Payment() {
     const store = useSelector((store) => store)
@@ -36,7 +37,7 @@ function Payment() {
        <p>Validity : 1 month</p>
       </p>
       <PayPalScriptProvider
-        options={{ "client-id": "AfM1-seVknsuDr0U2Y84wrVGl5KyMBFm1rhLVnDitVuJzPrFkNi7_ZUv0VI27srRrlRFR-L3x5_ITvjP" }}
+        options={{ "client-id": "AZeektxtf2-4ZeImkNWK2QwiehdkGQS2Uoa8JqH0jDFug1Chvv4PuO8crexpMz2eOc5JMIMFl4cnm6gz" }}
       >
         <PayPalButtons
           createOrder={(data, actions) => {
@@ -60,7 +61,7 @@ function Payment() {
             const name = details.payer.name.given_name;
             const orderId = data.orderID;
             console.log("Order ID:", orderId);
-            const response = await fetch('http://localhost:5000/api/student/createPayment', {
+            const response = await fetch(url+'/api/student/createPayment', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -70,7 +71,7 @@ function Payment() {
             });
            if(response.ok){
             await fetch(
-                `http://localhost:5000/api/student/updateDate/${store.student.student.student.registrationNumber}`
+                url+`/api/student/updateDate/${store.student.student.student.registrationNumber}`
               )
               alert("Transaction completed.Please Login Again to access the course ");
              // history.push('/invoice')

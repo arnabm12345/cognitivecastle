@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Home from "../../Components/AdminHomeHelper";
 import { Audio } from "react-loader-spinner";
-
+import url from "../../redux/utils/url";
 const AdminUploadVideos = () => {
     const store = useSelector((store) => store);
     const history = useHistory();
@@ -30,7 +30,7 @@ const AdminUploadVideos = () => {
      setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/getSubjects"
+        url+"/api/admin/getSubjects"
       );
       const subjectsData = await response.json();
       setSubjects(subjectsData);
@@ -46,7 +46,7 @@ const AdminUploadVideos = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/getAllUploadedVideos`
+        url+`/api/admin/getAllUploadedVideos`
       );
       const dummy = await response.json();
       const reversedDummy = dummy.reverse();
@@ -85,7 +85,7 @@ const AdminUploadVideos = () => {
         store.admin.admin.registrationNumber
       );
 
-      fetch("http://localhost:5000/uploadVideos", {
+      fetch(url+"/uploadVideos", {
         method: "POST",
         body: formData,
       })
@@ -120,7 +120,7 @@ const AdminUploadVideos = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/faculty/deleteVideo",
+        url+"/api/faculty/deleteVideo",
         {
           method: "DELETE",
           headers: {
@@ -291,7 +291,7 @@ const AdminUploadVideos = () => {
         )}
         {selectedVideo && (
           <video
-            src={`http://localhost:5000/getVideo/${selectedVideo.file}`}
+            src={url+`/getVideo/${selectedVideo.file}`}
             controls
             autoPlay
             muted

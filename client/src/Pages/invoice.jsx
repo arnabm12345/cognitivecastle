@@ -1,5 +1,6 @@
 import React from 'react';
 import { PDFViewer, Document, Page, View, Text, StyleSheet, Image } from '@react-pdf/renderer';
+import { useParams } from "react-router-dom";
 
 const styles = StyleSheet.create({
   viewer: {
@@ -86,11 +87,14 @@ const styles = StyleSheet.create({
 });
 
 const Invoice = () => {
+  const { id, amount,name } = useParams();
+
   const invoiceData = {
     companyName: 'ABC Company',
     companyAddress: '123 Main Street, City, State',
-    customerName: 'John Doe',
-    orderId: '12345',
+    customerName: name,
+    orderId: id,
+    amount:amount,
     items: [
       { name: 'Product 1', price: 10.0 },
       { name: 'Product 2', price: 15.0 },
@@ -178,26 +182,26 @@ const Invoice = () => {
             <Text style={styles.title}>Invoice</Text>
           </View>
           <View style={styles.section}>
-            <Text>Customer: {invoiceData.customerName}</Text>
-            <Text>Order ID: {invoiceData.orderId}</Text>
+            <Text>Customer: {name}</Text>
+            <Text>Order ID:{id}</Text>
 </View>
 <View style={styles.section}>
 <View style={styles.table}>
-{invoiceData.items.map((item, index) => (
-<View key={index} style={styles.tableRow}>
-<Text style={styles.tableCell}>{item.name}</Text>
-<Text style={styles.tableCell}>{item.price}</Text>
+
+<View  style={styles.tableRow}>
+<Text style={styles.tableCell}>Service</Text>
+<Text style={styles.tableCell}>{amount}</Text>
 </View>
-))}
+
 <View style={styles.totalRow}>
 <Text style={styles.totalLabel}>Total</Text>
-<Text style={styles.totalAmount}>{calculateTotal()}</Text>
+<Text style={styles.totalAmount}>{amount}</Text>
 </View>
 </View>
 </View>
 <View style={styles.footer}>
-<Text>Thank you for shopping with us!</Text>
-<Text>We appreciate your business.</Text>
+<Text>Thank you for choosing us!</Text>
+<Text>We appreciate your dedication.</Text>
 </View>
 </Page>
 </Document>

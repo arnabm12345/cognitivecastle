@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import { adminAddStudent } from '../redux/action/adminAction'
 import AdminHomeHelper from '../Components/AdminHomeHelper'
 
-
+import url from '../redux/utils/url'
 const AdminAddStudent = () => {
     const store = useSelector((store) => store)
     const dispatch = useDispatch()
@@ -94,6 +94,15 @@ const AdminAddStudent = () => {
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="12+">12+</option>
                                             </select>
                                             {error.year && (<div className="invalid-feedback">{error.year}</div>)}
                                         </div>

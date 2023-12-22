@@ -27,6 +27,7 @@ const Note = require('./models/note');
 const Timetable=require('./models/timetable')
 const Video=require('./models/video')
 const Payment=require('./models/payment')
+const Contact=require('./models/contact')
 // Passport Middleware
 app.use(passport.initialize());
 
@@ -193,6 +194,10 @@ mongoose
     const NoteModel = require('./models/note');
     const TimeTableModel=require('./models/timetable');
     const PaymentModel=require('./models/payment')
+    const ContactModel=require('./models/contact')
+    const facultyRegModel=require('./models/facultyregister')
+    const FeedbackModel=require('./models/feedback')
+    const volunteerModel=require('./models/volunteerregister')
     // Create collections if they do not exist
     await AdminModel.createCollection();
     await FacultyModel.createCollection();
@@ -200,6 +205,10 @@ mongoose
     await NoteModel.createCollection();
     await TimeTableModel.createCollection();
     await PaymentModel.createCollection();
+    await ContactModel.createCollection();
+    await facultyRegModel.createCollection();
+    await FeedbackModel.createCollection();
+    await volunteerModel.createCollection();
     console.log('Models created');
 
     console.log('Server Started on PORT', PORT);

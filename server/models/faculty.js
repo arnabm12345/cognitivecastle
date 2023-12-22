@@ -36,7 +36,7 @@ const facultySchema = new Schema({
         type: Number
     },
     aadharCard: {
-        type: Number
+        type:Number
     },
     dob: {
         type: String,

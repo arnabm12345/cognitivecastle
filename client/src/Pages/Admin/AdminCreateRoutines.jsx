@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import FacultyHomeHelper from "../Components/FacultyHomeHelper";
+import AdminHomeHelper from "../../Components/AdminHomeHelper";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Audio } from "react-loader-spinner";
 import classnames from 'classnames'
-import url from "../redux/utils/url";
-const CreateRoutines = () => {
+const url = "https://cognitive-castle-server.onrender.com"
+const AdminCreateRoutines = () => {
   const store = useSelector((store) => store);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const CreateRoutines = () => {
 
   const [timetableData, setTimetableData] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     fetchYears();
   }, []);
  
@@ -38,6 +38,7 @@ const CreateRoutines = () => {
 
     setLoading(false);
   }
+  */
   const formHandler = async(e) => {
     e.preventDefault()
     setIsLoading(true)
@@ -45,7 +46,7 @@ const CreateRoutines = () => {
     setIsLoading(false);
 
 }
-const uniqueYears = Array.from(years).sort((a, b) => a - b);
+//const uniqueYears = Array.from(years).sort((a, b) => a - b);
 
 
   const fetchRoutines = async () => {
@@ -164,9 +165,9 @@ const uniqueYears = Array.from(years).sort((a, b) => a - b);
 
   return (
     <div>
-      {store.faculty.isAuthenticated ? (
+      {store.admin.isAuthenticated ? (
         <>
-          <FacultyHomeHelper />
+          <AdminHomeHelper />
           {loading && (
             <div
               className="spinner-container"
@@ -199,10 +200,24 @@ const uniqueYears = Array.from(years).sort((a, b) => a - b);
                   })}
                   id="yearId"
                 >
-                  <option>Select</option>
-                  {uniqueYears.map((year) => (
-    <option key={year} value={year}>{year}</option>
-  ))}
+                 <option>Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="12+">12+</option>
+
+
+
+
 
                 </select>
                 {error.year && (
@@ -588,7 +603,7 @@ const uniqueYears = Array.from(years).sort((a, b) => a - b);
   );
 };
 
-export default CreateRoutines;
+export default AdminCreateRoutines;
 const tableHeaderStyle = {
   backgroundColor: "#f2f2f2",
   padding: "10px",

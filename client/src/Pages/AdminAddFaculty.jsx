@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import classnames from "classnames";
 import { adminAddFaculty } from "../redux/action/adminAction";
 import AdminHomeHelper from "../Components/AdminHomeHelper";
-
+import url from "../redux/utils/url";
 const AdminAddFaculty = () => {
   const store = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const AdminAddFaculty = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/getSubjects"
+        url+"/api/admin/getSubjects"
       );
       const subjectsData = await response.json();
       setSubjects(subjectsData);
@@ -125,11 +125,11 @@ const AdminAddFaculty = () => {
                           id="designationId"
                         >
                           <option>Select</option>
-                          <option value="Assistant Professor">
-                            Assistant Professor
+                          <option value="tutor">
+                            tutor
                           </option>
-                          <option value="Senior Professer">
-                            Senior Professer
+                          <option value="volunteer">
+                          volunteer
                           </option>
                         </select>
                         {error.designation && (

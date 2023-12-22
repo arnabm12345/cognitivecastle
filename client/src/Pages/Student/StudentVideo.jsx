@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import FacultyHomeHelper from "../Components/FacultyHomeHelper";
+import HomeHelper from "../../Components/HomeHelper";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Audio } from "react-loader-spinner";
-import url from "../redux/utils/url";
-const UploadVideos = () => {
+import classnames from "classnames";
+import { getAllSubjects } from "../../redux/action/studentAction";
+import url from "../../redux/utils/url";
+const GetVideos = () => {
     const store = useSelector((store) => store);
     const history = useHistory();
     const dispatch = useDispatch();
     const [selectedFile, setSelectedFile] = useState(null);
-    const [subjects, setSubjects] = useState([]);
+    const [subject, setSubject] = useState();
     const [inputValue, setInputValue] = useState("");
     const [inputValue1, setInputValue1] = useState("");
     const filename = "1687102508807_Notice 726 dated 12-06-23.pdf";
@@ -18,35 +20,31 @@ const UploadVideos = () => {
     const [loading, setIsLoading] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [videos, setVideos] = useState([]);
+    const [error, setError] = useState({});
 
-
-    
     useEffect(() => {
-        fetchSubjects();
-        fetchUpload();
-      }, []);
-
-     const fetchSubjects = async () => {
-     setIsLoading(true);
-    try {
-      const response = await fetch(
-        url+"/api/admin/getSubjects"
-      );
-      const subjectsData = await response.json();
-      setSubjects(subjectsData);
-      console.log("subjects", subjects);
-    } catch (error) {
-      console.error("Error fetching subjects:", error);
+      formHandler1();
+      },[])
+   
+      const formHandler1 = async(e) => {
+        setIsLoading(true);
+       await dispatch(getAllSubjects())
+         setIsLoading(false);
     }
-    finally{
+      const formHandler = async(e) => {
+        e.preventDefault()
+        setIsLoading(true)
+       await fetchUpload();
         setIsLoading(false);
+    
     }
-  };
+    
+
   const fetchUpload = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        url+`/api/faculty/getAllUploadedVideos/${store.faculty.faculty.faculty.registrationNumber}`
+        url+`/api/student/getAllUploadedVideos/${subject}`
       );
       const dummy = await response.json();
       const reversedDummy = dummy.reverse();
@@ -60,101 +58,20 @@ const UploadVideos = () => {
         setIsLoading(false);
     }
   };
-  
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-  const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-  const handleInputChange1 = (event) => {
-    setInputValue1(event.target.value);
-  };
-
-  const handleUpload = () => {
-    if (selectedFile && subjects && inputValue) {
-      setIsLoading(true);
-      const formData = new FormData();
-      formData.append("video", selectedFile);
-      const selectedSubject = document.getElementById("subject-dropdown").value;
-      formData.append("subject", selectedSubject);
-      formData.append("title", inputValue);
-      formData.append('description',inputValue1);
-      formData.append(
-        "registration_num",
-        store.faculty.faculty.faculty.registrationNumber
-      );
-
-      fetch(url+"/uploadVideos", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log("File uploaded successfully");
-            setSelectedFile(null);
-            setInputValue("");
-            alert(
-              "File Uploaded Successfully.Please Reload the Site to see the changes"
-            );
-          } else {
-            console.error("File upload failed");
-          }
-        })
-        .catch((error) => {
-          console.error("Error occurred during file upload:", error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
-      console.log("No file selected");
-    }
-  };
+ 
 
   const handleVideoClick = (video) => {
     setSelectedVideo(video);
   };
 
-  const handleDelete = async (id,file) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(
-        url+"/api/faculty/deleteVideo",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ _id: id,file:file }),
-        }
-      );
-
-      if (response.ok) {
-        // Upload deleted successfully
-        alert("The file deleted successfully");
-        setVideos((prevData) => prevData.filter((item) => item._id !== id));
-        console.log("Upload deleted successfully");
-        setSelectedVideo(null);
-      } else {
-        // Error deleting the upload
-        const error = await response.json();
-        console.log("Error deleting the upload:", error);
-      }
-    } catch (error) {
-      console.log("Error occurred while deleting the upload:", error);
-    }
-    finally{
-        setIsLoading(false);
-    }
-  };
+ 
 
 
   return (
     <div>
-      {store.faculty.isAuthenticated ? (
+      {store.student.isAuthenticated ? (
         <>
-          <FacultyHomeHelper />
+          <HomeHelper />
 
           {loading && (
             <div
@@ -183,74 +100,61 @@ const UploadVideos = () => {
               pointerEvents: loading ? "none" : "auto",
             }}
           >
-            <h1>File Upload</h1>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <label htmlFor="title">Title:</label>
-              <textarea
-                value={inputValue}
-                onChange={handleInputChange}
-               
-                style={{ width: "30%" }}
-              />
 
-           <label htmlFor="title">Description:</label>
-              <textarea
-                value={inputValue1}
-                onChange={handleInputChange1}
-                rows={4}
-                cols={50}
-                style={{ width: "30%", height: "80px" }}
-              />
-             
-            </div>
-            <label htmlFor="subject-dropdown">Select a Subject:</label>
-            <div className="subject-dropdown-wrapper">
-              {subjects && subjects.length > 0 ? (
-                <select
-                  id="subject-dropdown"
-                  style={{ width: "30%", height: "30px", borderRadius: "5px" }}
-                >
-                  {store.faculty.faculty.faculty.subjectsCanTeach.map((subject) => (
-                    <option key={subject._id} value={subject._id}>
-                        {subject.subjectName} (Class: {subject.year})
-                    </option>
-                  ))}
-                </select>
-              ) : null}
-            </div>
-            <div
-              className="file-input-wrapper"
-              style={{ display: "flex", flexDirection: "column", width: "20%" }}
-            >
-              <label htmlFor="file-input" style={{ marginTop: "10px" }}>
-                Choose a File:
-              </label>
-              <input
-                id="file-input"
-                type="file"
-                accept="video/mp4, video/mpeg, video/quicktime"
-                onChange={handleFileSelect}
-              />
-            </div>
-            <button
-              onClick={handleUpload}
-              style={{
-                backgroundColor: "#007bff",
-                color: "#fff",
-                padding: "10px 20px",
-                borderRadius: "5px",
-                cursor: "pointer",
-                marginTop: "15px",
-                opacity: loading ? "0.5" : "1",
-                pointerEvents: loading ? "none" : "auto",
-              }}
-            >
-              Upload
-            </button>
-          </div>
+            
+<div className="row mt-1 " style={{marginLeft:'27vw'}}>
+            <div className="col-md-4">
+            <form form-inline noValidate onSubmit={formHandler}>
+                  <div className="form-group">
+                    <label htmlFor="subjectId">Subject</label>
+
+                   
+                      <select
+                        onChange={(e) => setSubject(e.target.value)}
+                        className={classnames("form-control", {
+                          "is-invalid": error.setSubject,
+                        })}
+                        id="subjectId"
+                      >
+                        <option>Select</option>
+                        {store.student.allSubjects.map((subject) => (
+                          <option key={subject._id} value={subject._id}>
+                            {subject.subjectName}
+                          </option>
+                        ))}
+                      </select>
+                   
+
+                    {error.setSubject && (
+                      <div className="invalid-feedback">
+                        {error.setSubject}
+                      </div>
+                    )}
+                  </div>
+
+                  <div class="row justify-content-center">
+                    <div class="col-md-1">
+                      {loading && (
+                        <div class="spinner-border text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {!loading && (
+                    <button type="submit" className="btn btn-info btn-block  ">
+                      Search
+                    </button>
+                  )}
+                </form>
+           </div>
+           </div>
+        
+
+        </div>
 
           <div style={{ width: "100%" ,opacity: loading ? 0.6 : 1,
-              pointerEvents: loading ? "none" : "auto",marginBottom:'40px'}}>
+              pointerEvents: loading ? "none" : "auto",marginBottom:'40px',marginTop:'25px'}}>
             <h2
               style={{
                 display: "flex",
@@ -258,7 +162,7 @@ const UploadVideos = () => {
                 borderBottom: "2px solid",
               }}
             >
-              List of Your Uploaded Videos
+              List of Your  Videos
             </h2>
     <main
       style={{
@@ -302,40 +206,33 @@ const UploadVideos = () => {
               marginTop:'0.5rem',
               marginBottom:'25px'
             }}
+            controlsList="nodownload"
+
           ></video>
         )}
-
+<div  style={{display:'flex',flexDirection:'column',justifyContent: 'space-between'}}>
+    <div>
         {selectedVideo && (
            <div style={{display:'flex',flexDirection:'row',justifyContent: 'space-between'}}>
           <h3
             className="title"
             style={{
-              marginTop: '1rem',
+              marginTop: '0.5rem',
             }}
           >
             {selectedVideo.title}
           </h3>
 
-          <div style={{marginTop:'1rem'}}>
-          <button
-    style={{
-      backgroundColor: 'red',
-      color: 'white',
-      border: 'none',
-      padding: '0.5rem 1rem',
-      borderRadius: '0.25rem',
-      cursor: 'pointer',
-    }}
-    onClick={() => handleDelete(selectedVideo._id,selectedVideo.file)}
-    >
-    Delete
-  </button>
-          </div>
+
           </div> 
         )}
+        </div>
+        <div>
         {selectedVideo && (
              <p style={{font:'small-caption',marginBottom:'15px'}}>{selectedVideo.description}</p>
         )}
+        </div>
+        </div>
       </section>
 
       <section
@@ -428,4 +325,4 @@ const UploadVideos = () => {
 
 }
 
-export default UploadVideos;
+export default GetVideos;
