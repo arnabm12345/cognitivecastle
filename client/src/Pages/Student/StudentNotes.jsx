@@ -56,7 +56,7 @@ const GetNotes = () => {
   const handleView = async(file) => {
     // Perform the download action here
    
-   await fetch(url+`/getNote/${encodeURIComponent(file)}`)
+   await fetch(`https://dxyltluqgsxjegwfrckf.supabase.co/storage/v1/object/public/files/${encodeURIComponent(file)}`)
 			.then(response => {
 				response.blob().then(blob => {
 					let url = window.URL.createObjectURL(blob);

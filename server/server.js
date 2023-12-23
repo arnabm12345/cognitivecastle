@@ -102,30 +102,30 @@ app.get("/getNote/:filename", (req, res) => {
 });
 
 
-app.post("/uploadVideos", (req, res) => {
-  const file1 = req.files.video;
+app.post("/uploadVideos", async(req, res) => {
+  //const file1 = req.files.video;
 
   // Check if the file is of supported video file type
-  if (
+  /*if (
     file1.mimetype !== "video/mp4" &&
     file1.mimetype !== "video/mpeg" &&
     file1.mimetype !== "video/quicktime"
   ) {
     return res.status(400).send("Only MP4, MPEG, and QuickTime video formats are supported.");
   }
-
-  const filename1 = Date.now() + "_" + file1.name;
-  let uploadPath1 = __dirname + "/uploads_video/" + filename1;
-
+*/
+ // const filename1 = Date.now() + "_" + file1.name;
+  //let uploadPath1 = __dirname + "/uploads_video/" + filename1;
+/*
   file1.mv(uploadPath1, async (err) => {
     if (err) {
       console.error(err);
       return res.status(500).send("Error occurred while uploading the file.");
     }
-    // Create a new note object
+    */// Create a new note object
     const newVideo = new Video({
       subject: req.body.subject,
-      file: filename1,
+      file: req.body.screenshot,
       title: req.body.title,
       registration_num: req.body.registration_num,
       description:req.body.description
@@ -142,7 +142,7 @@ app.post("/uploadVideos", (req, res) => {
     }
     
   });
-});
+
 
 app.get("/getVideo/:filename", (req, res) => {
   const { filename } = req.params;

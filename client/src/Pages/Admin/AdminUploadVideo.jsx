@@ -81,7 +81,7 @@ const AdminUploadVideos = () => {
     if (selectedFile && subjects && inputValue) {
       setIsLoading(true);
 
-      const Screenshot=uuidv4() + ".pdf";
+      const Screenshot=uuidv4() + ".mp4";
       const {data, error } = await supabase.storage
       .from('files')
       .upload(Screenshot, selectedFile)
@@ -112,9 +112,8 @@ const AdminUploadVideos = () => {
             console.log("File uploaded successfully");
             setSelectedFile(null);
             setInputValue("");
-            alert(
-              "File Uploaded Successfully.Please Reload the Site to see the changes"
-            );
+            fetchUpload();
+
           } else {
             console.error("File upload failed");
           }
@@ -135,9 +134,13 @@ const AdminUploadVideos = () => {
     setSelectedVideo(video);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id,file) => {
     setIsLoading(true);
     try {
+      const { data, error } = await supabase
+  .storage
+ .from('files')
+ .remove([`${encodeURIComponent(file)}`])  
       const response = await fetch(
         url+"/api/faculty/deleteVideo",
         {
@@ -306,11 +309,11 @@ const AdminUploadVideos = () => {
         }}
       >
         {selectedVideo && (
-            <h3>Subject : {selectedVideo.subject.subjectName}</h3>
+            <h3>Subject : {selectedVideo.subject}</h3>
         )}
         {selectedVideo && (
           <video
-            src={url+`/getVideo/${selectedVideo.file}`}
+            src={CDNURL+`${selectedVideo.file}`}
             controls
             autoPlay
             muted
@@ -343,7 +346,7 @@ const AdminUploadVideos = () => {
       borderRadius: '0.25rem',
       cursor: 'pointer',
     }}
-    onClick={() => handleDelete(selectedVideo._id)}
+    onClick={() => handleDelete(selectedVideo._id,selectedVideo.file)}
     >
     Delete
   </button>

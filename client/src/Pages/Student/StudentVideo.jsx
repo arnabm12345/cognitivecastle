@@ -7,6 +7,8 @@ import { Audio } from "react-loader-spinner";
 import classnames from "classnames";
 import { getAllSubjects } from "../../redux/action/studentAction";
 import url from "../../redux/utils/url";
+const CDNURL = "https://dxyltluqgsxjegwfrckf.supabase.co/storage/v1/object/public/files/";
+
 const GetVideos = () => {
     const store = useSelector((store) => store);
     const history = useHistory();
@@ -196,7 +198,7 @@ const GetVideos = () => {
         )}
         {selectedVideo && (
           <video
-            src={url+`/getVideo/${selectedVideo.file}`}
+            src={CDNURL+`/${selectedVideo.file}`}
             controls
             autoPlay
             muted
