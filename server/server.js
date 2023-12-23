@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 
+
 // MIDDLEWARES
 const app = express();
 app.use(express.json());
@@ -53,15 +54,15 @@ io.on('connection', (socket) => {
 });
 
 
-app.post("/upLoadNotes", (req, res) => {
-  const file = req.files.screenshot;
+app.post("/upLoadNotes", async(req, res) => {
+// const file = req.files.screenshot;
 
   // Check if the file is of supported file type
-  if (file.mimetype !== "application/pdf" && file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+ /* if (file.mimetype !== "application/pdf" && file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
     return res.status(400).send("Only PDF and DOCX file formats are supported.");
   }
-
-  const filename = Date.now() + "_" + file.name;
+*/
+ /* const filename = Date.now() + "_" + file.name;
   let uploadPath = __dirname + "/uploads/" + filename;
 
   file.mv(uploadPath, async (err) => {
@@ -69,11 +70,12 @@ app.post("/upLoadNotes", (req, res) => {
       console.error(err);
       return res.status(500).send("Error occurred while uploading the file.");
     }
-
+*/
     // Create a new note object
     const newNote = new Note({
+      //screenshot:req.body.screenshot,
       subject: req.body.subject, // Assuming the subject is sent in the request body
-      file: filename,
+      file: req.body.screenshot,
       title: req.body.title,
       registration_num:req.body.registration_num,
     });
@@ -87,7 +89,7 @@ app.post("/upLoadNotes", (req, res) => {
       console.error("Error occurred while saving the note:", error);
       res.status(500).send("Error occurred while saving the note.");
     }
-  });
+/*  });*/
 });
 
 

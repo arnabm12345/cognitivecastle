@@ -5,6 +5,12 @@ import { useEffect } from "react";
 import Home from "../../Components/AdminHomeHelper";
 import { Audio } from "react-loader-spinner";
 import url from "../../redux/utils/url";
+
+import { v4 as uuidv4 } from 'uuid';
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient("https://dxyltluqgsxjegwfrckf.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4eWx0bHVxZ3N4amVnd2ZyY2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDMyNzE0NzEsImV4cCI6MjAxODg0NzQ3MX0.CTG8StiIt8gz7HruQK3olV7Sks8sH0vTuxkuZRJ4Y8A");
+const CDNURL = "https://dxyltluqgsxjegwfrckf.supabase.co/storage/v1/object/public/files/";
+
 const AdminUploadVideos = () => {
     const store = useSelector((store) => store);
     const history = useHistory();
@@ -71,11 +77,23 @@ const AdminUploadVideos = () => {
     setInputValue1(event.target.value);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async() => {
     if (selectedFile && subjects && inputValue) {
       setIsLoading(true);
+
+      const Screenshot=uuidv4() + ".pdf";
+      const {data, error } = await supabase.storage
+      .from('files')
+      .upload(Screenshot, selectedFile)
+      
+      if(error) {
+        console.log(error);
+        alert("Error uploading file to Database");
+       }
+      
+       if(!error){
       const formData = new FormData();
-      formData.append("video", selectedFile);
+      formData.append("screenshot", Screenshot);
       const selectedSubject = document.getElementById("subject-dropdown").value;
       formData.append("subject", selectedSubject);
       formData.append("title", inputValue);
@@ -107,7 +125,8 @@ const AdminUploadVideos = () => {
         .finally(() => {
           setIsLoading(false);
         });
-    } else {
+    }}
+     else {
       console.log("No file selected");
     }
   };

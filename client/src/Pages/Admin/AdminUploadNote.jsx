@@ -5,6 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Audio } from "react-loader-spinner";
 import url from "../../redux/utils/url";
+import { v4 as uuidv4 } from 'uuid';
+
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient("https://dxyltluqgsxjegwfrckf.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4eWx0bHVxZ3N4amVnd2ZyY2tmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDMyNzE0NzEsImV4cCI6MjAxODg0NzQ3MX0.CTG8StiIt8gz7HruQK3olV7Sks8sH0vTuxkuZRJ4Y8A");
+const CDNURL = "https://dxyltluqgsxjegwfrckf.supabase.co/storage/v1/object/public/files/";
+
+
 const AdminUploadNotes = () => {
   const store = useSelector((store) => store);
   const history = useHistory();
@@ -15,12 +22,7 @@ const AdminUploadNotes = () => {
   const filename = "1687102508807_Notice 726 dated 12-06-23.pdf";
   const [dummyData, setdummyData] = useState([]);
   const [loading, setIsLoading] = useState(false);
-  /*  const dummyData = [
-        { title: 'Subject 1', subject: 'Physics', download: '1687102508807_Notice 726 dated 12-06-23.pdf' },
-        { title: 'Subject 2', subject: 'Chemistry', download: 'Download Link 2' },
-        { title: 'Subject 3', subject: 'Mathematics', download: 'Download Link 3' },
-        // Add more data as needed
-      ];*/
+
 
   useEffect(() => {
     fetchSubjects();
@@ -70,9 +72,11 @@ const AdminUploadNotes = () => {
   };
 
   const handleView = (file) => {
-    // Perform the download action here
+    // Perform the download action here   
+ 
     window.open(
-      url+`/getNote/${encodeURIComponent(file)}`,
+      //url+`/getNote/${encodeURIComponent(file)}`
+      `https://dxyltluqgsxjegwfrckf.supabase.co/storage/v1/object/public/files/${encodeURIComponent(file)}`,
       "_blank"
     );
     /*
@@ -90,11 +94,22 @@ const AdminUploadNotes = () => {
    // history.push(path);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async() => {
     if (selectedFile && subjects && inputValue) {
       setIsLoading(true);
+      const Screenshot=uuidv4() + ".pdf";
+      const {data, error } = await supabase.storage
+      .from('files')
+      .upload(Screenshot, selectedFile) // uuidv4() => ASDFASDFASDASFASDF.mp4
+
+      if(error) {
+      console.log(error);
+      alert("Error uploading file to Database");
+     }
+     if(!error){
+          
       const formData = new FormData();
-      formData.append("screenshot", selectedFile);
+      formData.append("screenshot", Screenshot);
       const selectedSubject = document.getElementById("subject-dropdown").value;
       formData.append("subject", selectedSubject);
       formData.append("title", inputValue);
@@ -108,14 +123,17 @@ const AdminUploadNotes = () => {
         method: "POST",
         body: formData,
       })
-        .then((response) => {
+        .then(async(response) => {
           if (response.ok) {
             console.log("File uploaded successfully");
             setSelectedFile(null);
             setInputValue("");
-            alert(
+          /*  alert(
               "File Uploaded Successfully.Please Reload the Site to see the changes"
-            );
+            );*/
+           await fetchUpload();
+
+
           } else {
             console.error("File upload failed");
           }
@@ -126,7 +144,8 @@ const AdminUploadNotes = () => {
         .finally(() => {
           setIsLoading(false);
         });
-    } else {
+    } }
+    else {
       console.log("No file selected");
     }
   };
@@ -134,6 +153,11 @@ const AdminUploadNotes = () => {
   const handleDelete = async (id,file) => {
     setIsLoading(true);
     try {
+      
+  const { data, error } = await supabase
+  .storage
+ .from('files')
+ .remove([`${encodeURIComponent(file)}`])
       const response = await fetch(
         url+"/api/faculty/deleteUpload",
         {
