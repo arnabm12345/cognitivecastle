@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FacultyHomeHelper from "../Components/FacultyHomeHelper";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Audio } from "react-loader-spinner";
@@ -8,7 +8,7 @@ import url from '../redux/utils/url';
 const Announcement = () => {
     const store = useSelector((store) => store);
   const history = useHistory();
-  const dispatch = useDispatch(); 
+  //const dispatch = useDispatch(); 
   const [subjects, setSubjects] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [inputValue1, setInputValue1] = useState("");

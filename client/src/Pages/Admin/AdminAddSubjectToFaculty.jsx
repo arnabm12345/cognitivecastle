@@ -8,7 +8,7 @@ import axios from "axios";
 const AdminaddSubjectFaculty = () => {
   const store = useSelector((store) => store);
   const dispatch = useDispatch();
-  const [department, setDepartment] = useState("");
+  //const [department, setDepartment] = useState("");
   const [error, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading1, setIsLoading1] = useState(false);

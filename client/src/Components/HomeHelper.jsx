@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { studentLogout, newerChats, previousChats} from '../redux/action/studentAction'
+import { studentLogout/*newerChats, previousChats*/} from '../redux/action/studentAction'
 
 
 const Home = () => {
@@ -37,8 +37,8 @@ const Home = () => {
                                     <button type="button" className="btn" style={{fontSize:'14px'}}><Link to="/student/updateProfile"><li>UPDATE PROFILE</li></Link></button>
                                 </li>
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" style={{fontSize:'14px'}} role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        ACADEMIC </a>
+                                    <li className="nav-link dropdown-toggle" href="#" id="navbarDropdown" style={{fontSize:'14px'}} role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ACADEMIC </li>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                        { /*<Link className="dropdown-item" to="/student/testPerformance">Test Performance</Link>
                                         <Link className="dropdown-item" to="/student/attendence">Attendance</Link> */ }

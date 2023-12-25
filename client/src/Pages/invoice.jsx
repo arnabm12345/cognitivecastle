@@ -102,14 +102,14 @@ const Invoice = () => {
     ],
   };
 
-  const calculateTotal = () => {
+  /*const calculateTotal = () => {
     let total = 0;
     invoiceData.items.forEach((item) => {
       total += item.price;
     });
     return total;
   };
-
+*/
   return (
     <PDFViewer style={styles.viewer}>
       <Document>

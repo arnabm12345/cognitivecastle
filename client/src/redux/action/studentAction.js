@@ -1,7 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken'
 import jwt_decode from 'jwt-decode';
-import { SET_STUDENT, SET_ERRORS_HELPER, SET_ERRORS, STUDENT_UPDATE_PASSWORD, SET_OTP, SET_FLAG } from '../actionTypes'
+import { SET_STUDENT, SET_ERRORS_HELPER, SET_ERRORS, /*STUDENT_UPDATE_PASSWORD, SET_OTP,*/ SET_FLAG } from '../actionTypes'
 
 const url = "https://cognitive-castle-server-new.onrender.com"
 
@@ -116,11 +116,11 @@ export const studentLogin = (studentCredential) => {
 export const studentUpdatePassword = (passwordData) => {
     return async (dispatch) => {
         try {
-            const { data } = await axios({
+           /* const { data } = await axios({
                 method: 'Post',
                 url: url + "/api/student/updatePassword",
                 data: passwordData
-            })
+            })*/
             alert("Password Updated Successfully")
         }
         catch (err) {
@@ -190,11 +190,11 @@ export const getOTPStudent = (studentEmail) => {
 export const submitOTPStudent = (newPasswordWithOtp, history) => {
     return async (dispatch) => {
         try {
-            const { data } = await axios({
+           /* const { data } = await axios({
                 method: 'Post',
                 url: url + "/api/student/postOTP" ,
                 data:newPasswordWithOtp
-            })
+            })*/
             alert("Password Update, kindly login with updated password")
             history.push('/')
         }
