@@ -59,7 +59,7 @@ const Home = () => {
                                     <button type="button" className="btn"><Link to="/faculty/uploadVideos"><li>Upload Videos</li></Link></button>
                                 </li>
                                 <li className="nav-item">
-                                    <a href='http://localhost:3004/' target="_blank" className="btn" style={{color:'DodgerBlue'}}><li>Answer Doubt</li></a>
+                                    <a href='https://cognitive-castle-chat.onrender.com' target="_blank" className="btn" style={{color:'DodgerBlue'}}><li>Answer Doubt</li></a>
                                 </li>
                                 <li className="nav-item">
                                     <button type="button" className="btn"><Link to="/announcement"><li>Create Announcement</li></Link></button>

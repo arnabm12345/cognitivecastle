@@ -74,9 +74,8 @@ const Home = () => {
                                     <button type="button" style={{fontSize:'14px'}} className="btn"><Link to="/student/feedback"><li>FEEDBACK</li></Link></button>
                                 </li> 
                                 <li className="nav-item">
-                                    <a href='http://localhost:3004/' style={{fontSize:'14px'}} target="_blank" className="btn"><li>Ask Doubt</li></a>
+                                    <a href='https://cognitive-castle-chat.onrender.com' style={{fontSize:'14px'}} target="_blank" className="btn"><li>Ask Doubt</li></a>
                                 </li>
-
                               
                             </ul>
                            

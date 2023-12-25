@@ -83,8 +83,7 @@ const Home = () => {
                                     <button type="button" className="btn" style={{color:'brown'}}><Link to="/admin/AdminUploadNotes"><li>UPLOAD NOTES</li></Link></button>
                                     <button type="button" className="btn"><Link to="/admin/AdminUploadVideos"><li>Upload Videos</li></Link></button>  
                                     <button type="button" className="btn"><Link to="/admin/createroutines"><li>Create Routines</li></Link></button>     
-                                    <a href='http://localhost:3002/' target="_blank" className="btn" style={{color:'DodgerBlue'}}><li>Answer Doubt</li></a>
-
+                                    <a href='https://cognitive-castle-chat.onrender.com' target="_blank" className="btn" style={{color:'DodgerBlue'}}><li>Answer Doubt</li></a>
                                     </div>
                       </li>
                     { /*
