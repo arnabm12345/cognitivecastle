@@ -18,7 +18,7 @@ const AdminaddSubjectFaculty = () => {
   const [subjects, setSubjects] = useState([]);
   const [registrationNumber, setregistrationNumber] = useState("");
 
-  const url = "https://cognitive-castle-server.onrender.com"
+  const url = "https://cognitive-castle-server-new.onrender.com"
 
   useEffect(() => {
     fetchSubjects();

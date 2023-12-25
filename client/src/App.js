@@ -180,7 +180,7 @@ function App() {
           <Route exact path="/invoice/:id/:amount/:name" component={invoice}/>
           <Route exact path="/pdfRead" component={FileDownload} />
           
-          <Route path="*" component={<NotFound/>} />
+          <Route exact path="*" component={NotFound} />
         </Switch>
       </Router>
     </div>

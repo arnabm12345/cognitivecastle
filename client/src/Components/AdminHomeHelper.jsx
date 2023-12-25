@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { adminLogout } from '../redux/action/adminAction'
 
-const url = "http://localhost:5000"
+const url = "https://cognitive-castle-server-new.onrender.com"
 
 
 const Home = () => {

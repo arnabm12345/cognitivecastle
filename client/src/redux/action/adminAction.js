@@ -6,7 +6,7 @@ import {
     GET_SUBJECTS
 } from '../actionTypes'
 
-const url = "https://cognitive-castle-server.onrender.com"
+const url = "https://cognitive-castle-server-new.onrender.com"
 
 const setAdmin = (data) => {
     return {

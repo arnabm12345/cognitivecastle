@@ -1,3 +1,3 @@
 // filename: config.js
-const url = "http://localhost:5000";
+const url = "https://cognitive-castle-server-new.onrender.com";
 export default url;

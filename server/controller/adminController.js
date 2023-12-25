@@ -486,10 +486,10 @@ module.exports = {
     const { subject, year } = req.body;
 
     // Check if a file was uploaded
-    if (!req.file) {
+  /*  if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
-
+*/
     // Create a new note instance
     const note = new Note({
       subject,

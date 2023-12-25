@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Audio } from "react-loader-spinner";
 import classnames from 'classnames'
-const url = "https://cognitive-castle-server.onrender.com"
+const url = "https://cognitive-castle-server-new.onrender.com"
 const AdminCreateRoutines = () => {
   const store = useSelector((store) => store);
   const history = useHistory();

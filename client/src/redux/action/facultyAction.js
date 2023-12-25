@@ -10,7 +10,7 @@ const setFaculty = (data) => {
     }
 }
 
-const url = "https://cognitive-castle-server.onrender.com"
+const url = "https://cognitive-castle-server-new.onrender.com"
 
 const fetchStudentsHelper = (data) => {
     return {
