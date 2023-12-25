@@ -218,7 +218,6 @@ module.exports = {
       var date1 = new Date();
       const batch = date1.getFullYear();
       var components = ["STU", date.getFullYear(), departmentHelper, helper];
-
       var registrationNumber = components.join("");
       const newStudent = await new Student({
         name,
