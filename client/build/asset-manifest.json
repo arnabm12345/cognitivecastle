@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.541db5da.chunk.css",
+    "main.js": "/static/js/main.e976c3cc.chunk.js",
+    "main.js.map": "/static/js/main.e976c3cc.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.5de38bb5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.5de38bb5.js.map",
+    "static/js/2.f2bec829.chunk.js": "/static/js/2.f2bec829.chunk.js",
+    "static/js/2.f2bec829.chunk.js.map": "/static/js/2.f2bec829.chunk.js.map",
+    "static/js/3.fdb51cf4.chunk.js": "/static/js/3.fdb51cf4.chunk.js",
+    "static/js/3.fdb51cf4.chunk.js.map": "/static/js/3.fdb51cf4.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f0307b957353f9c08f8a7b46e7071f09.js": "/precache-manifest.f0307b957353f9c08f8a7b46e7071f09.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.541db5da.chunk.css.map": "/static/css/main.541db5da.chunk.css.map",
+    "static/js/2.f2bec829.chunk.js.LICENSE.txt": "/static/js/2.f2bec829.chunk.js.LICENSE.txt",
+    "static/js/main.e976c3cc.chunk.js.LICENSE.txt": "/static/js/main.e976c3cc.chunk.js.LICENSE.txt",
+    "static/media/browser.cjs": "/static/media/browser.5ef5f772.cjs",
+    "static/media/facultyStudentLogin.css": "/static/media/green-chameleon-s9CC2SKySJM-unsplash.0e651ff6.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5de38bb5.js",
+    "static/js/2.f2bec829.chunk.js",
+    "static/css/main.541db5da.chunk.css",
+    "static/js/main.e976c3cc.chunk.js"
+  ]
+}

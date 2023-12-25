@@ -1,0 +1,2 @@
+(this["webpackJsonpsip-sip"]=this["webpackJsonpsip-sip"]||[]).push([[3],{209:function(s,e,t){"use strict";s.exports=function(){throw new Error("ws does not work in the browser. Browser clients must use the native WebSocket object")}}}]);
+//# sourceMappingURL=3.fdb51cf4.chunk.js.map
